@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 # ENV
-# PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
-PANE_NR = '%53'
+PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
+# PANE_NR = '%17'
 tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
 PANE_MODE = tmux_data[1]
 PANE_TTY_FILE = tmux_data[0]
@@ -10,8 +10,10 @@ PANE_TTY_FILE = tmux_data[0]
 
 # SPECIAL STRINGS
 GRAY = "\e[0m\e[32m"
+# RED = "\e[38;5;124m"
 RED = "\e[1m\e[31m"
 CLEAR_SEQ = "\e[2J"
+HOME_SEQ = "\e[H"
 
 
 # CONFIG
@@ -20,13 +22,17 @@ KEYS = 'jfhgkdlsnamvucixozyrpt'.each_char.to_a
 
 # METHODS
 def recover_screen_after
-  saved_screen = `tmux capture-pane -ep -t #{PANE_NR}` # with colors...
+  saved_screen =
+    `tmux capture-pane -ep -t #{PANE_NR}`[0..-2] # with colors...
+      .gsub("\n", "\n\r")
+  cursor_y, cursor_x, _ = `tmux lsp -a -F "\#{cursor_y};\#{cursor_x};\#{pane_id}" | grep #{PANE_NR}`.split(';')
 
   returns = yield
 
   File.open(PANE_TTY_FILE, 'a') do |tty|
-    tty << "\e[0m" + CLEAR_SEQ
-    tty << saved_screen[0..-2] + ' '
+    tty << "\e[0m" + CLEAR_SEQ + HOME_SEQ
+    tty << saved_screen
+    tty << "\e[#{cursor_y.to_i + 1};#{cursor_x.to_i + 1}H"
   end
   returns
 end
@@ -55,14 +61,15 @@ end
 
 def draw_keys_onto_tty(screen_chars, positions, keys, key_len)
   File.open(PANE_TTY_FILE, 'a') do |tty|
-    tty << "#{CLEAR_SEQ}\n"
+    tty << "#{CLEAR_SEQ}#{HOME_SEQ}"
     cursor = 0
     positions.each_with_index do |pos, i|
-      tty << "#{GRAY}#{screen_chars[cursor..pos-key_len]}"
+      tty << "#{GRAY}#{screen_chars[cursor..pos-key_len].gsub("\n", "\n\r")}"
       tty << "#{RED}#{keys[i]}"
       cursor = pos + 1
     end
-    tty << "#{GRAY}#{screen_chars[cursor..-2]}"
+    tty << "#{GRAY}#{screen_chars[cursor..-1].gsub("\n", "\n\r")}"
+    tty << HOME_SEQ
   end
 end
 
@@ -94,15 +101,16 @@ def main
   `tmux send-keys -X -t #{PANE_NR} cancel` if PANE_MODE == '1'
   jump_to_char = prompt_char
   screen_chars =
-    `tmux capture-pane -p -t #{PANE_NR}` # without colors
+    `tmux capture-pane -p -t #{PANE_NR}`[0..-2] # without colors
   positions = positions_of jump_to_char, screen_chars
   position_index = recover_screen_after do
     prompt_position_index positions, screen_chars
   end
   jump_to = positions[position_index]
-  left = screen_chars.size - jump_to
   `tmux copy-mode -t #{PANE_NR}`
-  `tmux send-keys -X -N #{left} -t #{PANE_NR} cursor-left`
+  `tmux send-keys -X -t #{PANE_NR} start-of-line`
+  `tmux send-keys -X -t #{PANE_NR} top-line`
+  `tmux send-keys -X -N #{jump_to} -t #{PANE_NR} cursor-right`
 end
 
 main
