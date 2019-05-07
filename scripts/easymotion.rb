@@ -2,7 +2,6 @@
 
 # ENV
 PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
-# PANE_NR = '%17'
 tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
 PANE_MODE = tmux_data[1]
 PANE_TTY_FILE = tmux_data[0]
@@ -64,9 +63,9 @@ def draw_keys_onto_tty(screen_chars, positions, keys, key_len)
     tty << "#{CLEAR_SEQ}#{HOME_SEQ}"
     cursor = 0
     positions.each_with_index do |pos, i|
-      tty << "#{GRAY}#{screen_chars[cursor..pos-key_len].gsub("\n", "\n\r")}"
+      tty << "#{GRAY}#{screen_chars[cursor..pos-1].gsub("\n", "\n\r")}"
       tty << "#{RED}#{keys[i]}"
-      cursor = pos + 1
+      cursor = pos + key_len
     end
     tty << "#{GRAY}#{screen_chars[cursor..-1].gsub("\n", "\n\r")}"
     tty << HOME_SEQ
@@ -108,9 +107,14 @@ def main
   end
   jump_to = positions[position_index]
   `tmux copy-mode -t #{PANE_NR}`
+   # begin: tmux weirdness when 1st line is empty
   `tmux send-keys -X -t #{PANE_NR} start-of-line`
   `tmux send-keys -X -t #{PANE_NR} top-line`
-  `tmux send-keys -X -N #{jump_to} -t #{PANE_NR} cursor-right`
+  `tmux send-keys -X -t #{PANE_NR} -N 200 cursor-right`
+  # end
+  `tmux send-keys -X -t #{PANE_NR} start-of-line`
+  `tmux send-keys -X -t #{PANE_NR} top-line`
+  `tmux send-keys -X -t #{PANE_NR} -N #{jump_to} cursor-right`
 end
 
 main
