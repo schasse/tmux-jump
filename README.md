@@ -1,4 +1,5 @@
 # tmux-easymotion
+[![Build Status](https://travis-ci.org/schasse/tmux-easymotion.svg?branch=master)](https://travis-ci.org/schasse/tmux-easymotion)
 
 [easymotion](https://github.com/easymotion/vim-easymotion) for tmux.
 
