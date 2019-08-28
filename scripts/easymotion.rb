@@ -1,12 +1,5 @@
 #!/usr/bin/env ruby
 
-# ENV
-PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
-tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
-PANE_MODE = tmux_data[1]
-PANE_TTY_FILE = tmux_data[0]
-
-
 # SPECIAL STRINGS
 GRAY = "\e[0m\e[32m"
 # RED = "\e[38;5;124m"
@@ -39,7 +32,9 @@ end
 def prompt_char
   read, write = IO.pipe
   path = "/proc/#{Process.pid}/fd/#{write.fileno}"
-  `tmux command-prompt -1 -p 'char:' 'run-shell "printf %1 >> #{path}"'`
+  Kernel.spawn(
+    'tmux', 'command-prompt', '-1', '-p', 'char:',
+    "run-shell \"printf %1 >> #{path}\"")
   char = read.getc
   write.close
   read.close
@@ -74,7 +69,7 @@ end
 
 def keys_for(position_count, keys = KEYS, key_len = 1)
   if position_count > keys.size
-    keys_for(position_count, keys.product(keys).map(&:join), 2)
+    keys_for(position_count, keys.product(keys).map(&:join), key_len + 1)
   else
     keys
   end
@@ -117,4 +112,10 @@ def main
   `tmux send-keys -X -t #{PANE_NR} -N #{jump_to} cursor-right`
 end
 
-main
+if $PROGRAM_NAME == __FILE__
+  PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
+  tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
+  PANE_MODE = tmux_data[1]
+  PANE_TTY_FILE = tmux_data[0]
+  main
+end
