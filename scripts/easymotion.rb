@@ -7,10 +7,10 @@ GRAY = "\e[0m\e[32m"
 RED = "\e[1m\e[31m"
 CLEAR_SEQ = "\e[2J"
 HOME_SEQ = "\e[H"
-
+RESET_COLORS = "\e[0m"
 
 # CONFIG
-KEYS = 'jfhgkdlsnam'.each_char.to_a
+KEYS = 'jfhgkdlsa'.each_char.to_a
 
 
 # METHODS
@@ -26,6 +26,7 @@ def recover_screen_after
     tty << "\e[0m" + CLEAR_SEQ + HOME_SEQ
     tty << saved_screen
     tty << "\e[#{cursor_y.to_i + 1};#{cursor_x.to_i + 1}H"
+    tty << RESET_COLORS
   end
   returns
 end
