@@ -64,6 +64,10 @@ RSpec.describe 'tmux-easymotion' do
         expect(prompt_position_index([3, 22, 59], screen)).to eq nil
       end
     end
+
+    it "returns the index if it's just 1 possibility" do
+      expect(prompt_position_index([100], screen)).to eq 0
+    end
   end
 
   describe '#prompt_char' do

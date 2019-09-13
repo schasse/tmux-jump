@@ -10,7 +10,7 @@ HOME_SEQ = "\e[H"
 
 
 # CONFIG
-KEYS = 'jfhgkdlsnamvucixozyrpt'.each_char.to_a
+KEYS = 'jfhgkdlsnam'.each_char.to_a
 
 
 # METHODS
@@ -81,6 +81,8 @@ def keys_for(position_count, keys = KEYS, key_len = 1)
 end
 
 def prompt_position_index(positions, screen_chars)
+  return nil if positions.size == 0
+  return 0 if positions.size == 1
   keys = keys_for positions.size
   key_len = keys.first.size
   draw_keys_onto_tty screen_chars, positions, keys, key_len
