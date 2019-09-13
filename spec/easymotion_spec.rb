@@ -35,7 +35,36 @@ RSpec.describe 'tmux-easymotion' do
     end
   end
 
-  describe '#prompt_position_index'
+  describe '#prompt_position_index' do
+    let(:screen) do
+      tmp_screen = <<~EOS
+          ~$ echo 'hello world! easymotion for tmux :)'
+          hello world! easymotion for tmux :)
+          ~$
+        EOS
+      tmp_screen[0..-2] # no newline ending
+    end
+
+    context 'when prompt char returns a char thats not on the screen' do
+      before do
+        allow_any_instance_of(Object).to receive(:prompt_char).and_return 'b'
+      end
+
+      it 'returns nil' do
+        expect(prompt_position_index([3, 22, 59], screen)).to eq nil
+      end
+    end
+
+    context 'when prompt char does not return any char' do
+      before do
+        allow_any_instance_of(Object).to receive(:prompt_char).and_return nil
+      end
+
+      it 'just returns nil' do
+        expect(prompt_position_index([3, 22, 59], screen)).to eq nil
+      end
+    end
+  end
 
   describe '#prompt_char' do
     context 'when the prompting process answers' do
@@ -53,7 +82,18 @@ RSpec.describe 'tmux-easymotion' do
     end
 
     context 'when the prompting process does not answer' do
-      it 'raises a time out error'
+      before do
+        expect(Kernel).to receive(:spawn) do |*args|
+          expect(args.first).to eq 'tmux'
+          tmux_child_process_command = args.last.scan(/"(.+)"/).first.first
+          spawn tmux_child_process_command.gsub('%1', 'e')
+        end
+        expect(Timeout).to receive(:timeout).and_raise Timeout::Error
+      end
+
+      it 'returns nil' do
+        expect(prompt_char).to eq nil
+      end
     end
   end
 end

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'timeout'
 
 # SPECIAL STRINGS
 GRAY = "\e[0m\e[32m"
@@ -35,10 +36,14 @@ def prompt_char
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
     "run-shell \"printf %1 >> #{path}\"")
-  char = read.getc
+  char = Timeout.timeout(30) { read.getc }
   write.close
   read.close
   char
+rescue Timeout::Error
+  write.close
+  read.close
+  nil
 end
 
 def positions_of(jump_to_char, screen_chars)
@@ -80,7 +85,7 @@ def prompt_position_index(positions, screen_chars)
   key_len = keys.first.size
   draw_keys_onto_tty screen_chars, positions, keys, key_len
   key_index = KEYS.index(prompt_char)
-  if key_len > 1
+  if !key_index.nil? && key_len > 1
     magnitude = KEYS.size ** (key_len - 1)
     range_beginning = key_index * magnitude # p.e. 2 * 22^1
     range_ending = range_beginning + magnitude - 1
@@ -100,6 +105,7 @@ def main
   position_index = recover_screen_after do
     prompt_position_index positions, screen_chars
   end
+  exit 0 if position_index.nil?
   jump_to = positions[position_index]
   `tmux copy-mode -t #{PANE_NR}`
    # begin: tmux weirdness when 1st line is empty
