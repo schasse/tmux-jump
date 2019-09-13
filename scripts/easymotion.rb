@@ -95,7 +95,7 @@ def main
   `tmux send-keys -X -t #{PANE_NR} cancel` if PANE_MODE == '1'
   jump_to_char = prompt_char
   screen_chars =
-    `tmux capture-pane -p -t #{PANE_NR}`[0..-2] # without colors
+    `tmux capture-pane -p -t #{PANE_NR}`[0..-2].gsub("︎", '') # without colors
   positions = positions_of jump_to_char, screen_chars
   position_index = recover_screen_after do
     prompt_position_index positions, screen_chars

@@ -32,10 +32,6 @@ RSpec.describe 'tmux-easymotion' do
         expect(positions_of('e', screen)).to eq [3, 22, 59]
         expect(positions_of('s', screen)).to eq []
       end
-
-      context 'with some colorized screen' do
-        it 'returns the correct positions'
-      end
     end
   end
 
