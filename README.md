@@ -3,6 +3,7 @@
 
 [easymotion](https://github.com/easymotion/vim-easymotion) for tmux.
 
+![tmux-easymotion](https://user-images.githubusercontent.com/3882305/65063780-7390a500-d96e-11e9-98b3-7647892764ab.gif)
 
 ## Requirements
 
