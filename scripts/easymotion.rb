@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'tempfile'
+
 # SPECIAL STRINGS
 GRAY = "\e[0m\e[32m"
 # RED = "\e[38;5;124m"
@@ -30,14 +32,15 @@ def recover_screen_after
 end
 
 def prompt_char
-  read, write = IO.pipe
-  path = "/proc/#{Process.pid}/fd/#{write.fileno}"
+  char = nil
+  tmp_file = Tempfile.new 'tmux-easymotion'
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
-    "run-shell \"printf %1 >> #{path}\"")
-  char = read.getc
-  write.close
-  read.close
+    "run-shell \"printf %1 >> #{tmp_file.path}\"")
+  loop do # busy waiting with files :/
+    break if char = tmp_file.getc
+  end
+  tmp_file.unlink
   char
 end
 
