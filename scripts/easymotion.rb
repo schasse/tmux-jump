@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require 'timeout'
 
 require 'tempfile'
 
@@ -8,10 +9,10 @@ GRAY = "\e[0m\e[32m"
 RED = "\e[1m\e[31m"
 CLEAR_SEQ = "\e[2J"
 HOME_SEQ = "\e[H"
-
+RESET_COLORS = "\e[0m"
 
 # CONFIG
-KEYS = 'jfhgkdlsnamvucixozyrpt'.each_char.to_a
+KEYS = 'jfhgkdlsa'.each_char.to_a
 
 
 # METHODS
@@ -27,6 +28,7 @@ def recover_screen_after
     tty << "\e[0m" + CLEAR_SEQ + HOME_SEQ
     tty << saved_screen
     tty << "\e[#{cursor_y.to_i + 1};#{cursor_x.to_i + 1}H"
+    tty << RESET_COLORS
   end
   returns
 end
@@ -37,11 +39,15 @@ def prompt_char
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
     "run-shell \"printf %1 >> #{tmp_file.path}\"")
-  loop do # busy waiting with files :/
-    break if char = tmp_file.getc
+  Timeout.timeout(30) do
+    loop do # busy waiting with files :/
+      break if char = tmp_file.getc
+    end
+    tmp_file.unlink
   end
-  tmp_file.unlink
   char
+rescue Timeout::Error
+  nil
 end
 
 def positions_of(jump_to_char, screen_chars)
@@ -79,11 +85,13 @@ def keys_for(position_count, keys = KEYS, key_len = 1)
 end
 
 def prompt_position_index(positions, screen_chars)
+  return nil if positions.size == 0
+  return 0 if positions.size == 1
   keys = keys_for positions.size
   key_len = keys.first.size
   draw_keys_onto_tty screen_chars, positions, keys, key_len
   key_index = KEYS.index(prompt_char)
-  if key_len > 1
+  if !key_index.nil? && key_len > 1
     magnitude = KEYS.size ** (key_len - 1)
     range_beginning = key_index * magnitude # p.e. 2 * 22^1
     range_ending = range_beginning + magnitude - 1
@@ -98,11 +106,12 @@ def main
   `tmux send-keys -X -t #{PANE_NR} cancel` if PANE_MODE == '1'
   jump_to_char = prompt_char
   screen_chars =
-    `tmux capture-pane -p -t #{PANE_NR}`[0..-2] # without colors
+    `tmux capture-pane -p -t #{PANE_NR}`[0..-2].gsub("︎", '') # without colors
   positions = positions_of jump_to_char, screen_chars
   position_index = recover_screen_after do
     prompt_position_index positions, screen_chars
   end
+  exit 0 if position_index.nil?
   jump_to = positions[position_index]
   `tmux copy-mode -t #{PANE_NR}`
    # begin: tmux weirdness when 1st line is empty
