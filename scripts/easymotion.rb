@@ -38,8 +38,8 @@ def prompt_char
   tmp_file = Tempfile.new 'tmux-easymotion'
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
-    "run-shell \"printf %1 >> #{tmp_file.path}\"")
-  Timeout.timeout(30) do
+    "run-shell \"printf '%1' >> #{tmp_file.path}\"")
+  Timeout.timeout(10) do
     loop do # busy waiting with files :/
       break if char = tmp_file.getc
     end
@@ -47,7 +47,7 @@ def prompt_char
   end
   char
 rescue Timeout::Error
-  nil
+  exit
 end
 
 def positions_of(jump_to_char, screen_chars)
@@ -76,9 +76,9 @@ def draw_keys_onto_tty(screen_chars, positions, keys, key_len)
   end
 end
 
-def keys_for(position_count, keys = KEYS, key_len = 1)
+def keys_for(position_count, keys = KEYS)
   if position_count > keys.size
-    keys_for(position_count, keys.product(keys).map(&:join), key_len + 1)
+    keys_for(position_count, keys.product(KEYS).map(&:join))
   else
     keys
   end
@@ -96,7 +96,10 @@ def prompt_position_index(positions, screen_chars)
     range_beginning = key_index * magnitude # p.e. 2 * 22^1
     range_ending = range_beginning + magnitude - 1
     remaining_positions = positions[range_beginning..range_ending]
-    range_beginning + prompt_position_index(remaining_positions, screen_chars)
+    return nil if remaining_positions.nil?
+    lower_index = prompt_position_index(remaining_positions, screen_chars)
+    return nil if lower_index.nil?
+    range_beginning + lower_index
   else
     key_index
   end
@@ -118,7 +121,7 @@ def main
   `tmux send-keys -X -t #{PANE_NR} start-of-line`
   `tmux send-keys -X -t #{PANE_NR} top-line`
   `tmux send-keys -X -t #{PANE_NR} -N 200 cursor-right`
-  # end
+   # end
   `tmux send-keys -X -t #{PANE_NR} start-of-line`
   `tmux send-keys -X -t #{PANE_NR} top-line`
   `tmux send-keys -X -t #{PANE_NR} -N #{jump_to} cursor-right`
