@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'timeout'
-
 require 'tempfile'
 
 # SPECIAL STRINGS
@@ -34,16 +33,20 @@ def recover_screen_after
 end
 
 def prompt_char
-  char = nil
   tmp_file = Tempfile.new 'tmux-easymotion'
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
     "run-shell \"printf '%1' >> #{tmp_file.path}\"")
+  read_char_from_file tmp_file
+end
+
+def read_char_from_file(tmp_file)
+  char = nil
   Timeout.timeout(10) do
     loop do # busy waiting with files :/
       break if char = tmp_file.getc
     end
-    tmp_file.unlink
+    File.delete tmp_file
   end
   char
 rescue Timeout::Error
@@ -105,9 +108,8 @@ def prompt_position_index(positions, screen_chars)
   end
 end
 
-def main
+def main(jump_to_char)
   `tmux send-keys -X -t #{PANE_NR} cancel` if PANE_MODE == '1'
-  jump_to_char = prompt_char
   screen_chars =
     `tmux capture-pane -p -t #{PANE_NR}`[0..-2].gsub("︎", '') # without colors
   positions = positions_of jump_to_char, screen_chars
@@ -132,5 +134,7 @@ if $PROGRAM_NAME == __FILE__
   tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
   PANE_MODE = tmux_data[1]
   PANE_TTY_FILE = tmux_data[0]
-  main
+  tmp_file = File.new ARGV[0]
+  jump_to_char = read_char_from_file tmp_file
+  main jump_to_char
 end
