@@ -17,11 +17,8 @@ KEYS = 'jfhgkdlsa'.each_char.to_a
 
 # METHODS
 def recover_screen_after
-  cursor_y, cursor_x, alternate_on, _ =
-    `tmux lsp -a -F "\#{cursor_y};\#{cursor_x};\#{alternate_on};\#{pane_id}" | grep #{PANE_NR}`
-      .split(';')
-  if alternate_on == '1'
-    recover_alternate_screen_after(cursor_x, cursor_y) do
+  if ALTERNATE_ON == '1'
+    recover_alternate_screen_after do
       yield
     end
   else
@@ -44,7 +41,7 @@ def recover_normal_screen_after
   returns
 end
 
-def recover_alternate_screen_after(cursor_x, cursor_y)
+def recover_alternate_screen_after
   saved_screen =
     `tmux capture-pane -ep -t #{PANE_NR}`[0..-2] # with colors...
       .gsub("\n", "\n\r")
@@ -57,7 +54,7 @@ def recover_alternate_screen_after(cursor_x, cursor_y)
   File.open(PANE_TTY_FILE, 'a') do |tty|
     tty << RESET_COLORS + CLEAR_SEQ
     tty << saved_screen
-    tty << "\e[#{cursor_y.to_i + 1};#{cursor_x.to_i + 1}H"
+    tty << "\e[#{CURSOR_Y.to_i + 1};#{CURSOR_X.to_i + 1}H"
     tty << RESET_COLORS
   end
   returns
@@ -162,9 +159,13 @@ end
 
 if $PROGRAM_NAME == __FILE__
   PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
-  tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
-  PANE_MODE = tmux_data[1]
-  PANE_TTY_FILE = tmux_data[0]
+  format = '#{pane_id};#{pane_tty};#{pane_in_mode};\#{cursor_y};\#{cursor_x};\#{alternate_on}'
+  tmux_data = `tmux lsp -a -F "#{format}" | grep #{PANE_NR}`.split(';')
+  PANE_TTY_FILE = tmux_data[1]
+  PANE_MODE = tmux_data[2]
+  CURSOR_Y = tmux_data[3]
+  CURSOR_X = tmux_data[4]
+  ALTERNATE_ON = tmux_data[5]
   TMP_FILE = ARGV[0]
   main
 end
