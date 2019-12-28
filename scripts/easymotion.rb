@@ -33,7 +33,11 @@ def recover_normal_screen_after
     tty << ENTER_ALTERNATE_SCREEN + HOME_SEQ
   end
 
-  returns = yield
+  begin
+    returns = yield
+  rescue Timeout::Error
+    # user too too long, but we recover anyways
+  end
 
   File.open(PANE_TTY_FILE, 'a') do |tty|
     tty << RESTORE_NORMAL_SCREEN
@@ -49,7 +53,11 @@ def recover_alternate_screen_after
     tty << CLEAR_SEQ + HOME_SEQ
   end
 
-  returns = yield
+  begin
+    returns = yield
+  rescue Timeout::Error
+    # user too too long, but we recover anyways
+  end
 
   File.open(PANE_TTY_FILE, 'a') do |tty|
     tty << RESET_COLORS + CLEAR_SEQ
@@ -65,29 +73,41 @@ def prompt_char
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
     "run-shell \"printf '%1' >> #{tmp_file.path}\"")
-  Timeout.timeout(60*60) do
-    last_activity = `tmux display-message -p '\#{session_activity}'`
-    loop do
-      sleep 0.05
-      break if last_activity != `tmux display-message -p '\#{session_activity}'`
-    end
-  end
   read_char_from_file tmp_file
-rescue Timeout::Error
-  exit
 end
 
 def read_char_from_file(tmp_file)
+  user_escaped = [false] # as array, to have a multi thread variable
+  async_detect_user_escape user_escaped
   char = nil
-  Timeout.timeout(0.05) do
+  Timeout.timeout(10) do
     loop do # busy waiting with files :/
+      if user_escaped[0] == true
+        return nil
+      end
       break if char = tmp_file.getc
     end
-    File.delete tmp_file
   end
+  File.delete tmp_file
   char
-rescue Timeout::Error
-  nil
+end
+
+def async_detect_user_escape(user_escaped)
+  Thread.new do
+    Timeout.timeout(60) do
+      last_activity = `tmux display-message -p '\#{session_activity}'`
+      loop do
+        new_activity = `tmux display-message -p '\#{session_activity}'`
+        if last_activity != new_activity
+          user_escaped[0] = true
+          break
+        end
+        sleep 0.05
+      end
+    end
+  rescue Timeout::Error
+    exit
+  end
 end
 
 def positions_of(jump_to_char, screen_chars)
@@ -145,7 +165,11 @@ def prompt_position_index(positions, screen_chars)
 end
 
 def main
-  jump_to_char = read_char_from_file File.new(TMP_FILE)
+  begin
+    jump_to_char = read_char_from_file File.new(TMP_FILE)
+  rescue Timeout::Error
+    exit
+  end
   `tmux send-keys -X -t #{PANE_NR} cancel` if PANE_MODE == '1'
   screen_chars =
     `tmux capture-pane -p -t #{PANE_NR}`[0..-2].gsub("︎", '') # without colors
@@ -168,8 +192,8 @@ end
 
 if $PROGRAM_NAME == __FILE__
   PANE_NR = `tmux display-message -p "\#{pane_id}"`.strip
-  format = '#{pane_id};#{pane_tty};#{pane_in_mode};\#{cursor_y};\#{cursor_x};\#{alternate_on}'
-  tmux_data = `tmux lsp -a -F "#{format}" | grep #{PANE_NR}`.split(';')
+  format = '#{pane_id};#{pane_tty};#{pane_in_mode};#{cursor_y};#{cursor_x};#{alternate_on}'
+  tmux_data = `tmux lsp -a -F "#{format}" | grep #{PANE_NR}`.strip.split(';')
   PANE_TTY_FILE = tmux_data[1]
   PANE_MODE = tmux_data[2]
   CURSOR_Y = tmux_data[3]
