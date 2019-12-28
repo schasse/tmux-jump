@@ -65,12 +65,21 @@ def prompt_char
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
     "run-shell \"printf '%1' >> #{tmp_file.path}\"")
+  Timeout.timeout(60*60) do
+    last_activity = `tmux display-message -p '\#{session_activity}'`
+    loop do
+      sleep 0.05
+      break if last_activity != `tmux display-message -p '\#{session_activity}'`
+    end
+  end
   read_char_from_file tmp_file
+rescue Timeout::Error
+  exit
 end
 
 def read_char_from_file(tmp_file)
   char = nil
-  Timeout.timeout(10) do
+  Timeout.timeout(0.05) do
     loop do # busy waiting with files :/
       break if char = tmp_file.getc
     end
@@ -78,7 +87,7 @@ def read_char_from_file(tmp_file)
   end
   char
 rescue Timeout::Error
-  exit
+  nil
 end
 
 def positions_of(jump_to_char, screen_chars)
