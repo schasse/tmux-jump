@@ -9,22 +9,53 @@ RED = "\e[1m\e[31m"
 CLEAR_SEQ = "\e[2J"
 HOME_SEQ = "\e[H"
 RESET_COLORS = "\e[0m"
+ENTER_ALTERNATE_SCREEN = "\e[?1049h"
+RESTORE_NORMAL_SCREEN = "\e[?1049l"
 
 # CONFIG
 KEYS = 'jfhgkdlsa'.each_char.to_a
 
-
 # METHODS
 def recover_screen_after
-  saved_screen =
-    `tmux capture-pane -ep -t #{PANE_NR}`[0..-2] # with colors...
-      .gsub("\n", "\n\r")
-  cursor_y, cursor_x, _ = `tmux lsp -a -F "\#{cursor_y};\#{cursor_x};\#{pane_id}" | grep #{PANE_NR}`.split(';')
+  cursor_y, cursor_x, alternate_on, _ =
+    `tmux lsp -a -F "\#{cursor_y};\#{cursor_x};\#{alternate_on};\#{pane_id}" | grep #{PANE_NR}`
+      .split(';')
+  if alternate_on == '1'
+    recover_alternate_screen_after(cursor_x, cursor_y) do
+      yield
+    end
+  else
+    recover_normal_screen_after do
+      yield
+    end
+  end
+end
+
+def recover_normal_screen_after
+  File.open(PANE_TTY_FILE, 'a') do |tty|
+    tty << ENTER_ALTERNATE_SCREEN + HOME_SEQ
+  end
 
   returns = yield
 
   File.open(PANE_TTY_FILE, 'a') do |tty|
-    tty << "\e[0m" + CLEAR_SEQ + HOME_SEQ
+    tty << RESTORE_NORMAL_SCREEN
+  end
+  returns
+end
+
+def recover_alternate_screen_after(cursor_x, cursor_y)
+  saved_screen =
+    `tmux capture-pane -ep -t #{PANE_NR}`[0..-2] # with colors...
+      .gsub("\n", "\n\r")
+  File.open(PANE_TTY_FILE, 'a') do |tty|
+    tty << CLEAR_SEQ + HOME_SEQ
+  end
+
+  returns = yield
+
+  File.open(PANE_TTY_FILE, 'a') do |tty|
+    tty << RESET_COLORS + CLEAR_SEQ
     tty << saved_screen
     tty << "\e[#{cursor_y.to_i + 1};#{cursor_x.to_i + 1}H"
     tty << RESET_COLORS
@@ -67,7 +98,6 @@ end
 
 def draw_keys_onto_tty(screen_chars, positions, keys, key_len)
   File.open(PANE_TTY_FILE, 'a') do |tty|
-    tty << "#{CLEAR_SEQ}#{HOME_SEQ}"
     cursor = 0
     positions.each_with_index do |pos, i|
       tty << "#{GRAY}#{screen_chars[cursor..pos-1].gsub("\n", "\n\r")}"
@@ -108,7 +138,8 @@ def prompt_position_index(positions, screen_chars)
   end
 end
 
-def main(jump_to_char)
+def main
+  jump_to_char = read_char_from_file File.new(TMP_FILE)
   `tmux send-keys -X -t #{PANE_NR} cancel` if PANE_MODE == '1'
   screen_chars =
     `tmux capture-pane -p -t #{PANE_NR}`[0..-2].gsub("︎", '') # without colors
@@ -134,7 +165,6 @@ if $PROGRAM_NAME == __FILE__
   tmux_data = `tmux lsp -a -F "\#{pane_tty};\#{pane_in_mode};\#{pane_id}" | grep #{PANE_NR}`.split(';')
   PANE_MODE = tmux_data[1]
   PANE_TTY_FILE = tmux_data[0]
-  tmp_file = File.new ARGV[0]
-  jump_to_char = read_char_from_file tmp_file
-  main jump_to_char
+  TMP_FILE = ARGV[0]
+  main
 end
