@@ -22,6 +22,8 @@ Config = Struct.new(
   :cursor_y,
   :cursor_x,
   :alternate_on,
+  :scroll_position,
+  :pane_height,
   :tmp_file
 ).new
 
@@ -190,8 +192,10 @@ def main
     Kernel.exit
   end
   `tmux send-keys -X -t #{Config.pane_nr} cancel` if Config.pane_mode == '1'
+  start = -Config.scroll_position
+  ending = -Config.scroll_position + Config.pane_height - 1
   screen_chars =
-    `tmux capture-pane -p -t #{Config.pane_nr}`[0..-2].gsub("︎", '') # without colors
+    `tmux capture-pane -p -t #{Config.pane_nr} -S #{start} -E #{ending}`[0..-2].gsub("︎", '') # without colors
   positions = positions_of jump_to_char, screen_chars
   position_index = recover_screen_after do
     prompt_position_index! positions, screen_chars
@@ -206,18 +210,22 @@ def main
    # end
   `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
   `tmux send-keys -X -t #{Config.pane_nr} top-line`
+  `tmux send-keys -X -t #{Config.pane_nr} -N #{Config.scroll_position} cursor-up`
   `tmux send-keys -X -t #{Config.pane_nr} -N #{jump_to} cursor-right`
 end
 
 if $PROGRAM_NAME == __FILE__
   Config.pane_nr = `tmux display-message -p "\#{pane_id}"`.strip
-  format = '#{pane_id};#{pane_tty};#{pane_in_mode};#{cursor_y};#{cursor_x};#{alternate_on}'
+  format = '#{pane_id};#{pane_tty};#{pane_in_mode};#{cursor_y};#{cursor_x};'\
+           '#{alternate_on};#{scroll_position};#{pane_height}'
   tmux_data = `tmux lsp -a -F "#{format}" | grep #{Config.pane_nr}`.strip.split(';')
   Config.pane_tty_file = tmux_data[1]
   Config.pane_mode = tmux_data[2]
   Config.cursor_y = tmux_data[3]
   Config.cursor_x = tmux_data[4]
   Config.alternate_on = tmux_data[5]
+  Config.scroll_position = tmux_data[6].to_i
+  Config.pane_height = tmux_data[7].to_i
   Config.tmp_file = ARGV[0]
   main
 end
