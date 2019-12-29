@@ -2,13 +2,14 @@ require_relative '../scripts/easymotion'
 require 'pty'
 require 'pry'
 
-PANE_NR = '%68'
-PANE_MODE = '0'
+Config.pane_nr = '%68'
+Config.pane_mode = '0'
 
 RSpec.describe 'tmux-easymotion' do
   before do
     @read, @write = PTY.open
-    PANE_TTY_FILE = @write.path
+    Config.pane_tty_file = @write.path
+    expect(Kernel).to_not receive :exit
   end
 
   after do
@@ -81,44 +82,44 @@ RSpec.describe 'tmux-easymotion' do
     end
   end
 
-  describe '#prompt_position_index' do
+  describe '#prompt_position_index!' do
     context 'when prompt char returns a char thats not on the screen' do
       before do
-        allow_any_instance_of(Object).to receive(:prompt_char).and_return 'b'
+        allow_any_instance_of(Object).to receive(:prompt_char!).and_return 'b'
       end
 
       it 'returns nil' do
-        expect(prompt_position_index([3, 22, 59], simple_screen)).to eq nil
+        expect(prompt_position_index!([3, 22, 59], simple_screen)).to eq nil
       end
     end
 
     context 'when prompt char does not return any char' do
       before do
-        allow_any_instance_of(Object).to receive(:prompt_char).and_return nil
+        allow_any_instance_of(Object).to receive(:prompt_char!).and_return nil
       end
 
       it 'just returns nil' do
-        expect(prompt_position_index([3, 22, 59], simple_screen)).to eq nil
+        expect(prompt_position_index!([3, 22, 59], simple_screen)).to eq nil
       end
     end
 
     it "returns the index if it's just 1 possibility" do
-      expect(prompt_position_index([100], simple_screen)).to eq 0
+      expect(prompt_position_index!([100], simple_screen)).to eq 0
     end
 
     context 'with many times the same char (many possible positions)' do
       before do
-        allow_any_instance_of(Object).to receive(:prompt_char).and_return 'j'
+        allow_any_instance_of(Object).to receive(:prompt_char!).and_return 'j'
       end
 
       it 'returns the ccorrect position' do
         positions = (0..81).to_a
-        expect(prompt_position_index(positions, many_es_screen)).to eq 0
+        expect(prompt_position_index!(positions, many_es_screen)).to eq 0
       end
     end
   end
 
-  describe '#prompt_char' do
+  describe '#prompt_char!' do
     context 'when the prompting process answers' do
       before do
         expect(Kernel).to receive(:spawn) do |*args|
@@ -129,7 +130,7 @@ RSpec.describe 'tmux-easymotion' do
       end
 
       it 'returns the character' do
-        expect(prompt_char).to eq 'e'
+        expect(prompt_char!).to eq 'e'
       end
     end
 
@@ -137,15 +138,25 @@ RSpec.describe 'tmux-easymotion' do
       before do
         expect(Kernel).to receive(:spawn) do |*args|
           expect(args.first).to eq 'tmux'
-          tmux_child_process_command = args.last.scan(/"(.+)"/).first.first
-          spawn tmux_child_process_command.gsub('%1', 'e')
         end
-        expect(Timeout).to receive(:timeout).and_raise Timeout::Error
+        expect(Timeout).to receive(:timeout).with(10).and_raise Timeout::Error
       end
 
-      it 'returns nil' do
-        expect(prompt_char).to eq nil
+      it 'raises Timeout::Error' do
+        expect { prompt_char! }.to raise_error Timeout::Error
       end
+    end
+  end
+
+  describe '#async_detect_user_escape' do
+    it 'sends sth' do
+      allow(Open3).to receive(:capture2) do
+        Time.now.to_i
+      end
+
+      result_queue = Queue.new
+      async_detect_user_escape result_queue
+      expect(result_queue.pop).to eq nil
     end
   end
 end
