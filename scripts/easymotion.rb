@@ -120,9 +120,9 @@ def async_detect_user_escape(result_queue)
     last_activity =
       Open3.capture2 'tmux', 'display-message', '-p', '#{session_activity}'
     loop do
-      sleep 0.05
       new_activity =
         Open3.capture2 'tmux', 'display-message', '-p', '#{session_activity}'
+      sleep 0.05
       if last_activity != new_activity
         result_queue.push nil
       end
