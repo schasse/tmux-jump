@@ -217,7 +217,7 @@ if $PROGRAM_NAME == __FILE__
   Config.pane_nr = `tmux display-message -p "\#{pane_id}"`.strip
   format = '#{pane_id};#{pane_tty};#{pane_in_mode};#{cursor_y};#{cursor_x};'\
            '#{alternate_on};#{scroll_position};#{pane_height}'
-  tmux_data = `tmux lsp -t #{Config.pane_nr} -F "#{format}"`.strip.split(';')
+  tmux_data = `tmux display-message -p -t #{Config.pane_nr} -F "#{format}"`.strip.split(';')
   Config.pane_tty_file = tmux_data[1]
   Config.pane_mode = tmux_data[2]
   Config.cursor_y = tmux_data[3]
