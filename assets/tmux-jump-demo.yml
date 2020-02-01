@@ -1,0 +1,946 @@
+---
+config:
+  command: "/bin/zsh -l"
+  cwd: "/home/schasse"
+  env:
+    recording: true
+  cols: 71
+  rows: 23
+  repeat: 0
+  quality: 100
+  frameDelay: auto
+  maxIdleTime: 2000
+  frameBox:
+    type: floating
+    title:
+    style:
+      border: 0px black solid
+  watermark:
+    imagePath:
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  cursorStyle: block
+  fontFamily: Ubuntu Mono
+  fontSize: 23
+  lineHeight: 1
+  letterSpacing: 0
+  theme:
+    background: transparent
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+records:
+- delay: 708
+  content: "\e[?1049h\e[22;0;0t\e[?1h\e=\e[H\e[2J\e[?12l\e[?25h\e[?1000l\e[?1002l\e[?1006l\e[?1005l\e[c\e(B\e[m\e[?12;25h\e[?12l\e[?25h\e[?1003l\e[?1006l\e[?2004l\e[1;1H\e[1;23r\e]112\a\e[1;1H\e[?1006h\e[?1002h\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e(B\e[m\e[?12;25h\e[?12l\e[?25h\e[?1003l\e[?1006l\e[?2004l\e[1;1H\e[1;23r\e[1;1H\e[?1006h\e[?1002h\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 58
+  content: "\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 118
+  content: "\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 4
+  content: "\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 4
+  content: "\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 4
+  content: "\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 4
+  content: "\e[?25l\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                           \"schasse-ThinkPad\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 454
+  content: "\e[1m\e[7m%\e(B\e[m                                                                      \e[1;1H
+    \e[H"
+- delay: 39
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h"
+- delay: 8
+  content: "\e[1;22r\e[2;22r\e[21S\e[1;1H\e[K\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\e[1;23r\e[1;6H\e[?2004h"
+- delay: 808
+  content: e
+- delay: 133
+  content: "\bec"
+- delay: 56
+  content: h
+- delay: 72
+  content: o
+- delay: 92
+  content: " "
+- delay: 159
+  content: "'"
+- delay: 266
+  content: I
+- delay: 214
+  content: " "
+- delay: 114
+  content: w
+- delay: 125
+  content: a
+- delay: 93
+  content: n
+- delay: 80
+  content: t
+- delay: 79
+  content: " "
+- delay: 103
+  content: t
+- delay: 62
+  content: o
+- delay: 81
+  content: " "
+- delay: 140
+  content: j
+- delay: 122
+  content: u
+- delay: 132
+  content: m
+- delay: 77
+  content: p
+- delay: 76
+  content: " "
+- delay: 140
+  content: h
+- delay: 74
+  content: e
+- delay: 94
+  content: r
+- delay: 67
+  content: e
+- delay: 138
+  content: "."
+- delay: 196
+  content: "'"
+- delay: 143
+  content: "\r\n\e[?2004l"
+- delay: 16
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"echo 'I want
+    to jump \" 20:58 01-Feb-20\e(B\e[m\e[2;1H\e[?12l\e[?25hI want to jump here.\r\n\e[1m\e[7m%\e(B\e[m
+    \                                                                     \e[3;1H
+    \r"
+- delay: 44
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    20:58 01-Feb-20\e(B\e[m\e[3;1H\e[?12l\e[?25h"
+- delay: 9
+  content: "\e[1;22r\e[4;22r\e[19S\e[3;1H\e[K\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\e[1;23r\e[3;6H\e[?2004h"
+- delay: 595
+  content: "\e[?25l\e[23;1H\e[30m\e[43mchar: \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[3;6H\e[?2004l"
+- delay: 139
+  content: "\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:58 01-Feb-20\e(B\e[m\e[3;6H\e[?12l\e[?25h\e[?2004h\e[?25l\e[H\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[H\e[?12l\e[?25h\e[32m➜
+    \ ~ echo 'I want to jump \e[31m\e[1mj\e(B\e[m\e[32mere.'\r\nI want to jump \e[31m\e[1mf\e(B\e[m\e[32mere.\r\n➜
+    \ ~\e[H\e(B\e[m\e[?25l\e[23d\e[30m\e[43mchar: \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[1;1H\e[?2004l"
+- delay: 998
+  content: "\e[32m➜  ~ echo 'I want to jump \e[31m\e[1mj\e(B\e[m\e[32mere.'\e[39m\e[K\r\n\e[32mI
+    want to jump \e[31m\e[1mf\e(B\e[m\e[32mere.\e[39m\e[K\r\n\e[32m➜  ~\e[39m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:58 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?2004h\e[?25l\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI want to jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[3;6H\e[?12l\e[?25h\e[?25l\e[H\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'                                  \e[30m\e[43m[0/1]\e[2;1H\e[39m\e[49mI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[3;6H\e[?12l\e[?25h\e[?2004l\r\e[H\e[31m\e[1m➜\e[3;1H➜\e[H\e(B\e[m\e[22d\e[H\e[31m\e[1m➜\e[3;1H➜\e[H\e(B\e[m\e[2;16H"
+- delay: 1645
+  content: "\e[?25l\e[23;1H\e[30m\e[42m[0] 0:[tmux]*                   \"schasse@schasse-Think\"
+    20:58 01-Feb-20\e(B\e[m\e[2;16H\e[?12l\e[?25h"
+- delay: 7
+  content: "\e[?25l\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[3;6H\e[?12l\e[?25h\e[?2004h\e[?25l\e[23;1H\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:58 01-Feb-20\e(B\e[m\e[3;6H\e[?12l\e[?25h"
+- delay: 550
+  content: e
+- delay: 131
+  content: "\bec"
+- delay: 51
+  content: h
+- delay: 57
+  content: o
+- delay: 56
+  content: " "
+- delay: 134
+  content: "'"
+- delay: 232
+  content: g
+- delay: 92
+  content: o
+- delay: 95
+  content: t
+- delay: 80
+  content: " "
+- delay: 110
+  content: i
+- delay: 74
+  content: t
+- delay: 452
+  content: "?"
+- delay: 425
+  content: " "
+- delay: 286
+  content: I
+- delay: 92
+  content: " "
+- delay: 72
+  content: w
+- delay: 121
+  content: a
+- delay: 88
+  content: n
+- delay: 88
+  content: t
+- delay: 77
+  content: " "
+- delay: 93
+  content: t
+- delay: 46
+  content: o
+- delay: 90
+  content: " "
+- delay: 247
+  content: j
+- delay: 103
+  content: u
+- delay: 130
+  content: m
+- delay: 79
+  content: p
+- delay: 50
+  content: " "
+- delay: 133
+  content: h
+- delay: 44
+  content: e
+- delay: 85
+  content: r
+- delay: 54
+  content: e
+- delay: 185
+  content: "."
+- delay: 396
+  content: "'"
+- delay: 158
+  content: "\e[?2004l\r\n"
+- delay: 11
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"echo 'got it?
+    I want \" 20:59 01-Feb-20\e(B\e[m\e[4;1H\e[?12l\e[?25hgot it? I want to jump here.\r\n\e[1m\e[7m%\e(B\e[m
+    \                                                                     \e[5;1H
+    \r"
+- delay: 57
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    20:59 01-Feb-20\e(B\e[m\e[5;1H\e[?12l\e[?25h"
+- delay: 9
+  content: "\e[1;22r\e[6;22r\e[17S\e[5;1H\e[K\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\e[1;23r\e[5;6H\e[?2004h"
+- delay: 462
+  content: "\e[?25l\e[23;1H\e[30m\e[43mchar: \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[5;6H\e[?2004l"
+- delay: 254
+  content: "\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[5;6H\e[?12l\e[?25h\e[?2004h\e[?25l\e[H\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[H\e[?12l\e[?25h\e[32m➜
+    \ ~ echo 'I want to jump \e[31m\e[1mj\e(B\e[m\e[32mere.'\r\nI want to jump \e[31m\e[1mf\e(B\e[m\e[32mere.\r\n➜
+    \ ~ echo 'got it? I want to jump \e[31m\e[1mh\e(B\e[m\e[32mere.'\r\ngot it? I
+    want to jump \e[31m\e[1mg\e(B\e[m\e[32mere.\r\n➜  ~\e[H\e(B\e[m\e[?25l\e[23d\e[30m\e[43mchar:
+    \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[1;1H\e[?2004l"
+- delay: 1145
+  content: "\e[32m➜  ~ echo 'I want to jump \e[31m\e[1mj\e(B\e[m\e[32mere.'\e[39m\e[K\r\n\e[32mI
+    want to jump \e[31m\e[1mf\e(B\e[m\e[32mere.\e[39m\e[K\r\n\e[32m➜  ~ echo 'got
+    it? I want to jump \e[31m\e[1mh\e(B\e[m\e[32mere.'\e[39m\e[K\r\n\e[32mgot it?
+    I want to jump \e[31m\e[1mg\e(B\e[m\e[32mere.\e[39m\e[K\r\n\e[32m➜  ~\e[39m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?2004h\e[?25l\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI want to jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'got it? I want to jump here.'\e[K\r\ngot it? I want to
+    jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[5;6H\e[?12l\e[?25h\e[?25l\e[H\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'                                  \e[30m\e[43m[0/1]\e[2;1H\e[39m\e[49mI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[5;6H\e[?12l\e[?25h\e[?2004l\r\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[H\e(B\e[m\e[22d\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[H\e(B\e[m"
+- delay: 3
+  content: "\e[4;24H"
+- delay: 448
+  content: "\e[?25l\e[23;1H\e[30m\e[42m[0] 0:[tmux]*                   \"schasse@schasse-Think\"
+    20:59 01-Feb-20\e(B\e[m\e[4;24H\e[?12l\e[?25h"
+- delay: 6
+  content: "\e[?25l\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[5;6H\e[?12l\e[?25h\e[?2004h"
+- delay: 943
+  content: "\e[?25l\e[23;1H\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    20:59 01-Feb-20\e(B\e[m\e[5;6H\e[?12l\e[?25he"
+- delay: 139
+  content: "\bec"
+- delay: 79
+  content: h
+- delay: 50
+  content: o
+- delay: 82
+  content: " "
+- delay: 181
+  content: "'"
+- delay: 210
+  content: T
+- delay: 128
+  content: y
+- delay: 56
+  content: p
+- delay: 110
+  content: e
+- delay: 85
+  content: " "
+- delay: 165
+  content: t
+- delay: 78
+  content: m
+- delay: 127
+  content: u
+- delay: 54
+  content: x
+- delay: 135
+  content: "-"
+- delay: 166
+  content: p
+- delay: 77
+  content: r
+- delay: 44
+  content: e
+- delay: 324
+  content: f
+- delay: 89
+  content: i
+- delay: 98
+  content: x
+- delay: 91
+  content: " "
+- delay: 149
+  content: f
+- delay: 92
+  content: o
+- delay: 140
+  content: l
+- delay: 99
+  content: l
+- delay: 490
+  content: o
+- delay: 134
+  content: w
+- delay: 145
+  content: e
+- delay: 143
+  content: d
+- delay: 123
+  content: " "
+- delay: 154
+  content: b
+- delay: 126
+  content: y
+- delay: 109
+  content: " "
+- delay: 135
+  content: j
+- delay: 110
+  content: " "
+- delay: 134
+  content: t
+- delay: 74
+  content: o
+- delay: 82
+  content: " "
+- delay: 129
+  content: t
+- delay: 128
+  content: r
+- delay: 102
+  content: i
+- delay: 96
+  content: g
+- delay: 103
+  content: g
+- delay: 92
+  content: e
+- delay: 66
+  content: r
+- delay: 131
+  content: " "
+- delay: 112
+  content: t
+- delay: 84
+  content: h
+- delay: 127
+  content: e
+- delay: 452
+  content: " "
+- delay: 177
+  content: j
+- delay: 125
+  content: u
+- delay: 132
+  content: m
+- delay: 78
+  content: p
+- delay: 53
+  content: " "
+- delay: 180
+  content: m
+- delay: 56
+  content: o
+- delay: 72
+  content: d
+- delay: 123
+  content: e
+- delay: 60
+  content: "."
+- delay: 98
+  content: " "
+- delay: 175
+  content: T
+- delay: 116
+  content: h
+- delay: 76
+  content: "e\e[6;1H\e[K"
+- delay: 88
+  content: n
+- delay: 84
+  content: "\rn "
+- delay: 94
+  content: t
+- delay: 98
+  content: y
+- delay: 57
+  content: p
+- delay: 104
+  content: e
+- delay: 142
+  content: " "
+- delay: 299
+  content: t
+- delay: 75
+  content: h
+- delay: 74
+  content: e
+- delay: 74
+  content: " "
+- delay: 109
+  content: f
+- delay: 88
+  content: i
+- delay: 56
+  content: r
+- delay: 68
+  content: s
+- delay: 86
+  content: t
+- delay: 102
+  content: " "
+- delay: 694
+  content: c
+- delay: 77
+  content: h
+- delay: 79
+  content: a
+- delay: 90
+  content: r
+- delay: 105
+  content: a
+- delay: 156
+  content: c
+- delay: 135
+  content: t
+- delay: 125
+  content: e
+- delay: 105
+  content: r
+- delay: 200
+  content: " "
+- delay: 263
+  content: o
+- delay: 83
+  content: f
+- delay: 90
+  content: " "
+- delay: 106
+  content: t
+- delay: 79
+  content: h
+- delay: 92
+  content: e
+- delay: 82
+  content: " "
+- delay: 125
+  content: w
+- delay: 81
+  content: o
+- delay: 90
+  content: r
+- delay: 366
+  content: d
+- delay: 149
+  content: " "
+- delay: 121
+  content: t
+- delay: 72
+  content: o
+- delay: 72
+  content: " "
+- delay: 156
+  content: j
+- delay: 133
+  content: u
+- delay: 140
+  content: m
+- delay: 81
+  content: p
+- delay: 89
+  content: " "
+- delay: 111
+  content: t
+- delay: 78
+  content: o
+- delay: 179
+  content: "."
+- delay: 88
+  content: " "
+- delay: 342
+  content: L
+- delay: 107
+  content: e
+- delay: 107
+  content: t
+- delay: 159
+  content: s
+- delay: 235
+  content: " "
+- delay: 140
+  content: j
+- delay: 107
+  content: u
+- delay: 142
+  content: m
+- delay: 85
+  content: p
+- delay: 108
+  content: " "
+- delay: 165
+  content: h
+- delay: 58
+  content: e
+- delay: 72
+  content: r
+- delay: 58
+  content: e
+- delay: 190
+  content: "."
+- delay: 269
+  content: "'"
+- delay: 251
+  content: "\r\n\e[?2004l"
+- delay: 9
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                                      \"echo
+    \" 20:59 01-Feb-20\e(B\e[m\e[7;1H\e[?12l\e[?25hType tmux-prefix followed by j
+    to trigger the jump mode. Then type the first character of the word to jump to.
+    Lets jump here.\r\n\e[1m\e[7m%\e(B\e[m                                                                      \e[9;1H
+    \r"
+- delay: 77
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    20:59 01-Feb-20\e(B\e[m\e[9;1H\e[?12l\e[?25h"
+- delay: 9
+  content: "\e[1;22r\e[10;22r\e[13S\e[9;1H\e[K\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\e[1;23r\e[9;6H\e[?2004h"
+- delay: 727
+  content: "\e[?25l\e[23;1H\e[30m\e[43mchar: \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[9;6H\e[?2004l"
+- delay: 930
+  content: "\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho
+    'Type tmux-prefix followed by j to trigger the jump mode. Then type the first
+    character of the word to jump to. Lets jump here.'\e[K\r\nType tmux-prefix followed
+    by j to trigger the jump mode. Then type the\e[K\r\nfirst character of the word
+    to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[9;6H\e[?12l\e[?25h\e[?2004h\e[?25l\e[H\e[32m➜
+    \ ~ echo 'I want to jump \e[31m\e[1mj\e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[1;28H\e[?12l\e[?25h\e[32mere.'\r\nI
+    want to jump \e[31m\e[1mf\e(B\e[m\e[32mere.\r\n➜  ~ echo 'got it? I want to jump
+    \e[31m\e[1mh\e(B\e[m\e[32mere.'\r\ngot it? I want to jump \e[31m\e[1mg\e(B\e[m\e[32mere.\r\n➜
+    \ ~ echo 'Type tmux-prefix followed by j to trigger the jump mode. The\e[6;1Hn
+    type the first character of the word to jump to. Lets jump \e[31m\e[1mk\e(B\e[m\e[32mere.'\r\nType
+    tmux-prefix followed by j to trigger the jump mode. Then type the\r\nfirst character
+    of the word to jump to. Lets jump \e[31m\e[1md\e(B\e[m\e[32mere.\r\n➜  ~\e[H\e(B\e[m\e[?25l\e[23d\e[30m\e[43mchar:
+    \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[1;1H\e[?2004l"
+- delay: 784
+  content: "\e[32m➜  ~ echo 'I want to jump \e[31m\e[1mj\e(B\e[m\e[32mere.'\e[39m\e[K\r\n\e[32mI
+    want to jump \e[31m\e[1mf\e(B\e[m\e[32mere.\e[39m\e[K\r\n\e[32m➜  ~ echo 'got
+    it? I want to jump \e[31m\e[1mh\e(B\e[m\e[32mere.'\e[39m\e[K\r\n\e[32mgot it?
+    I want to jump \e[31m\e[1mg\e(B\e[m\e[32mere.\e[39m\e[K\r\n\e[32m➜  ~ echo 'Type
+    tmux-prefix followed by j to trigger the jump mode. The\e[6;1Hn type the first
+    character of the word to jump to. Lets jump \e[31m\e[1mk\e(B\e[m\e[32mere.'\e[39m\e[K\r\n\e[32mType
+    tmux-prefix followed by j to trigger the jump mode. Then type the\e[39m\e[K\r\n\e[32mfirst
+    character of the word to jump to. Lets jump \e[31m\e[1md\e(B\e[m\e[32mere.\e[39m\e[K\r\n\e[32m➜
+    \ ~\e[39m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?2004h\e[?25l\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI want to jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'got it? I want to jump here.'\e[K\r\ngot it? I want to
+    jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'Type tmux-prefix followed
+    by j to trigger the jump mode. Then type the first character of the word to jump
+    to. Lets jump here.'\e[K\r\nType tmux-prefix followed by j to trigger the jump
+    mode. Then type the\e[K\r\nfirst character of the word to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[9;6H\e[?12l\e[?25h\e[?25l\e[H\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'                                  \e[30m\e[43m[0/1]\e[2;1H\e[39m\e[49mI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho
+    'Type tmux-prefix followed by j to trigger the jump mode. The\e[6;1Hn type the
+    first character of the word to jump to. Lets jump here.'\e[K\r\nType tmux-prefix
+    followed by j to trigger the jump mode. Then type the\e[K\r\nfirst character of
+    the word to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[9;6H\e[?12l\e[?25h\e[?2004l\r\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[9;1H➜\e[H\e(B\e[m\e[4B\e[31m\e[1m➜\e[69C\e(B\e[m$\e[5;1H\e[31m\e[1m➜\e[69C\e(B\e[me\e[6;5H\r\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[9;1H➜\e[H\e(B\e[m"
+- delay: 4
+  content: "\e[4B\e[31m\e[1m➜\e[69C\e(B\e[m$\e[5;1H\e[31m\e[1m➜\e[69C\e(B\e[me\e[8;51H"
+- delay: 872
+  content: "\e[?25l\e[23;1H\e[30m\e[42m[0] 0:[tmux]*                   \"schasse@schasse-Think\"
+    20:59 01-Feb-20\e(B\e[m\e[8;51H\e[?12l\e[?25h"
+- delay: 5
+  content: "\e[?25l\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho
+    'Type tmux-prefix followed by j to trigger the jump mode. Then type the first
+    character of the word to jump to. Lets jump here.'\e[K\r\nType tmux-prefix followed
+    by j to trigger the jump mode. Then type the\e[K\r\nfirst character of the word
+    to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[9;6H\e[?12l\e[?25h\e[?2004h\e[?25l\e[23;1H\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[9;6H\e[?12l\e[?25h"
+- delay: 429
+  content: e
+- delay: 129
+  content: "\bec"
+- delay: 83
+  content: h
+- delay: 60
+  content: o
+- delay: 65
+  content: " "
+- delay: 154
+  content: "'"
+- delay: 338
+  content: Y
+- delay: 129
+  content: o
+- delay: 88
+  content: u
+- delay: 147
+  content: " "
+- delay: 132
+  content: c
+- delay: 71
+  content: a
+- delay: 98
+  content: n
+- delay: 75
+  content: " "
+- delay: 180
+  content: c
+- delay: 79
+  content: o
+- delay: 99
+  content: m
+- delay: 189
+  content: b
+- delay: 88
+  content: i
+- delay: 60
+  content: n
+- delay: 549
+  content: e
+- delay: 137
+  content: " "
+- delay: 221
+  content: i
+- delay: 93
+  content: t
+- delay: 85
+  content: " "
+- delay: 157
+  content: a
+- delay: 95
+  content: n
+- delay: 95
+  content: d
+- delay: 79
+  content: " "
+- delay: 124
+  content: c
+- delay: 84
+  content: o
+- delay: 107
+  content: p
+- delay: 147
+  content: y
+- delay: 91
+  content: " "
+- delay: 136
+  content: t
+- delay: 76
+  content: h
+- delay: 93
+  content: e
+- delay: 147
+  content: " "
+- delay: 272
+  content: w
+- delay: 77
+  content: o
+- delay: 85
+  content: r
+- delay: 132
+  content: d
+- delay: 85
+  content: " "
+- delay: 331
+  content: y
+- delay: 71
+  content: o
+- delay: 46
+  content: u
+- delay: 84
+  content: " "
+- delay: 205
+  content: j
+- delay: 116
+  content: u
+- delay: 151
+  content: m
+- delay: 62
+  content: p
+- delay: 125
+  content: e
+- delay: 165
+  content: d
+- delay: 585
+  content: " "
+- delay: 91
+  content: t
+- delay: 73
+  content: o
+- delay: 174
+  content: "."
+- delay: 79
+  content: " "
+- delay: 260
+  content: L
+- delay: 129
+  content: i
+- delay: 130
+  content: k
+- delay: 42
+  content: e
+- delay: 107
+  content: " "
+- delay: 88
+  content: t
+- delay: 71
+  content: h
+- delay: 60
+  content: "i\e[10;1H\e[K"
+- delay: 76
+  content: s
+- delay: 122
+  content: "\rs "
+- delay: 101
+  content: o
+- delay: 72
+  content: n
+- delay: 95
+  content: e
+- delay: 667
+  content: "'"
+- delay: 305
+  content: "\r\n\e[?2004l"
+- delay: 11
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"echo 'You can
+    combine\" 20:59 01-Feb-20\e(B\e[m\e[11;1H\e[?12l\e[?25hYou can combine it and
+    copy the word you jumped to. Like this one\r\n\e[1m\e[7m%\e(B\e[m                                                                      \e[12;1H
+    \r"
+- delay: 63
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    20:59 01-Feb-20\e(B\e[m\e[12;1H\e[?12l\e[?25h"
+- delay: 9
+  content: "\e[1;22r\e[13;22r\e[10S\e[12;1H\e[K\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\e[1;23r\e[12;6H\e[?2004h"
+- delay: 1520
+  content: e
+- delay: 147
+  content: "\bec"
+- delay: 81
+  content: h
+- delay: 44
+  content: o
+- delay: 88
+  content: " "
+- delay: 168
+  content: "'"
+- delay: 219
+  content: C
+- delay: 310
+  content: o
+- delay: 147
+  content: p
+- delay: 121
+  content: e
+- delay: 112
+  content: i
+- delay: 270
+  content: "\b \b"
+- delay: 87
+  content: "\b \b"
+- delay: 141
+  content: i
+- delay: 53
+  content: e
+- delay: 134
+  content: d
+- delay: 131
+  content: " "
+- delay: 980
+  content: "\e[?25l\e[23;1H\e[30m\e[43mchar: \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[12;19H\e[?2004l"
+- delay: 967
+  content: "\e[H\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho
+    'Type tmux-prefix followed by j to trigger the jump mode. Then type the first
+    character of the word to jump to. Lets jump here.'\e[K\r\nType tmux-prefix followed
+    by j to trigger the jump mode. Then type the\e[K\r\nfirst character of the word
+    to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'You can
+    combine it and copy the word you jumped to. Like this one'\e[K\r\nYou can combine
+    it and copy the word you jumped to. Like this one\e[K\r\n\e[31m\e[1m➜  \e[36m~
+    \e(B\e[mecho 'Copied\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[12;19H\e[?12l\e[?25h\e[?2004h\e[?25l\e[H\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[H\e[?12l\e[?25h\e[32m➜
+    \ ~ echo 'I want \e[31m\e[1mjj\e(B\e[m\e[32m jump here.'\r\nI want \e[31m\e[1mjf\e(B\e[m\e[32m
+    jump here.\r\n➜  ~ echo 'got it? I want \e[31m\e[1mjh\e(B\e[m\e[32m jump here.'\r\ngot
+    it? I want \e[31m\e[1mjg\e(B\e[m\e[32m jump here.\r\n➜  ~ echo '\e[31m\e[1mjk\e(B\e[m\e[32mpe
+    \e[31m\e[1mjd\e(B\e[m\e[32mux-prefix followed by j \e[31m\e[1mjl\e(B\e[m\e[32m
+    \e(B\e[m\e[31m\e[1mjs\e(B\e[m\e[32migger \e[31m\e[1mja\e(B\e[m\e[32me jump mode.
+    \e[31m\e[1mfj\e(B\e[m\e[32me\e[6;1Hn \e[31m\e[1mff\e(B\e[m\e[32mpe \e[31m\e[1mfh\e(B\e[m\e[32me
+    first character of \e[31m\e[1mfg\e(B\e[m\e[32me word \e[31m\e[1mfk\e(B\e[m\e[32m
+    jump \e(B\e[m\e[31m\e[1mfd\e(B\e[m\e[32m. Lets jump here.'\r\n\e[31m\e[1mfl\e(B\e[m\e[32mpe
+    \e[31m\e[1mfs\e(B\e[m\e[32mux-prefix followed by j \e[31m\e[1mfa\e(B\e[m\e[32m
+    \e[31m\e[1mhj\e(B\e[m\e[32migger \e[31m\e[1mhf\e(B\e[m\e[32me jump mode. \e[31m\e[1mhh\e(B\e[m\e[32men
+    \e[31m\e[1mhg\e(B\e[m\e[32mpe \e[31m\e[1mhk\e(B\e[m\e[32me\r\nfirst character
+    of \e[31m\e[1mhd\e(B\e[m\e[32me word \e[31m\e[1mhl\e(B\e[m\e[32m jump \e[31m\e[1mhs\e(B\e[m\e[32m.
+    Lets jump here.\r\n➜  ~ echo 'You can combine it and copy \e[31m\e[1mha\e(B\e[m\e[32me
+    word you jumped \e[31m\e[1mgj\e(B\e[m\e[32m. Like \e[31m\e[1mgf\e(B\e[m\e[32mi\e[10;1Hs
+    one'\r\nYou can combine it and copy \e[31m\e[1mgh\e(B\e[m\e[32me word you jumped
+    \e[31m\e[1mgg\e(B\e[m\e[32m. Like \e[31m\e[1mgk\e(B\e[m\e[32mis one\r\n➜  ~ echo
+    'Copied\e[H\e(B\e[m\e[?25l\e[23d\e[30m\e[43mchar: \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[1;1H\e[?2004l"
+- delay: 1047
+  content: "\e[32m➜  ~ echo 'I want \e[31m\e[1mjj\e(B\e[m\e[32m jump here.'\e[39m\e[K\r\n\e[32mI
+    want \e[31m\e[1mjf\e(B\e[m\e[32m jump here.\e[39m\e[K\r\n\e[32m➜  ~ echo 'got
+    it? I want \e[31m\e[1mjh\e(B\e[m\e[32m jump here.'\e[39m\e[K\r\n\e[32mgot it?
+    I want \e[31m\e[1mjg\e(B\e[m\e[32m jump here.\e[39m\e[K\r\n\e[32m➜  ~ echo '\e[31m\e[1mjk\e(B\e[m\e[32mpe
+    \e[31m\e[1mjd\e(B\e[m\e[32mux-prefix followed by j \e[31m\e[1mjl\e(B\e[m\e[32m
+    \e[31m\e[1mjs\e(B\e[m\e[32migger \e[31m\e[1mja\e(B\e[m\e[32me jump mode. \e[31m\e[1mfj\e(B\e[m\e[32me\e[6;1Hn
+    \e[31m\e[1mff\e(B\e[m\e[32mpe \e[31m\e[1mfh\e(B\e[m\e[32me first character of
+    \e[31m\e[1mfg\e(B\e[m\e[32me word \e[31m\e[1mfk\e(B\e[m\e[32m jump \e[31m\e[1mfd\e(B\e[m\e[32m.
+    Lets jump here.'\e[39m\e[K\r\n\e[31m\e[1mfl\e(B\e[m\e[32mpe \e[31m\e[1mfs\e(B\e[m\e[32mux-prefix
+    followed by j \e[31m\e[1mfa\e(B\e[m\e[32m \e[31m\e[1mhj\e(B\e[m\e[32migger \e[31m\e[1mhf\e(B\e[m\e[32me
+    jump mode. \e[31m\e[1mhh\e(B\e[m\e[32men \e[31m\e[1mhg\e(B\e[m\e[32mpe \e[31m\e[1mhk\e(B\e[m\e[32me\e[39m\e[K\r\n\e[32mfirst
+    character of \e[31m\e[1mhd\e(B\e[m\e[32me word \e[31m\e[1mhl\e(B\e[m\e[32m jump
+    \e[31m\e[1mhs\e(B\e[m\e[32m. Lets jump here.\e[39m\e[K\r\n\e[32m➜  ~ echo 'You
+    can combine it and copy \e[31m\e[1mha\e(B\e[m\e[32me word you jumped \e[31m\e[1mgj\e(B\e[m\e[32m.
+    Like \e[31m\e[1mgf\e(B\e[m\e[32mi\e[10;1Hs one'\e[39m\e[K\r\n\e[32mYou can combine
+    it and copy \e[31m\e[1mgh\e(B\e[m\e[32me word you jumped \e[31m\e[1mgg\e(B\e[m\e[32m.
+    Like \e[31m\e[1mgk\e(B\e[m\e[32mis one\e[39m\e[K\r\n\e[32m➜  ~ echo 'Copied\e[39m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 20:59 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?2004h\e[32m➜
+    \ ~ echo 'I want to jump here.'\r\nI want to jump here.\r\n➜  ~ echo 'got it?
+    I want to jump here.'\r\ngot it? I want to jump here.\r\n➜  ~ echo 'Type tmux-prefix
+    followed by j to trigger the jump mode. The\e[6;1Hn type the first character of
+    the word to jump to. Lets jump here.'\r\nType tmux-prefix followed by j to trigger
+    the jump mode. Then type the\r\nfirst character of the word to jump to. Lets jump
+    here.\r\n➜  ~ echo 'You can combine it and copy the word you jumped \e[31m\e[1mj\e(B\e[m\e[32mo.
+    Like \e[31m\e[1mf\e(B\e[m\e[32mhi\e[10;1Hs one'\r\nYou can combine it and copy
+    \e[31m\e[1mh\e(B\e[m\e[32mhe word you jumped \e[31m\e[1mg\e(B\e[m\e[32mo. Like
+    \e[31m\e[1mk\e(B\e[m\e[32mhis one\r\n➜  ~ echo 'Copied\e[H\e(B\e[m\e[?25l\e[23d\e[30m\e[43mchar:
+    \e[7m \e(B\e[m\e[30m\e[43m                                                                \e(B\e[m\e[1;1H\e[?2004l"
+- delay: 1167
+  content: "\e[32m➜  ~ echo 'I want to jump here.'\e[39m\e[K\r\n\e[32mI want to jump
+    here.\e[39m\e[K\r\n\e[32m➜  ~ echo 'got it? I want to jump here.'\e[39m\e[K\r\n\e[32mgot
+    it? I want to jump here.\e[39m\e[K\r\n\e[32m➜  ~ echo 'Type tmux-prefix followed
+    by j to trigger the jump mode. The\e[6;1Hn type the first character of the word
+    to jump to. Lets jump here.'\e[39m\e[K\r\n\e[32mType tmux-prefix followed by j
+    to trigger the jump mode. Then type the\e[39m\e[K\r\n\e[32mfirst character of
+    the word to jump to. Lets jump here.\e[39m\e[K\r\n\e[32m➜  ~ echo 'You can combine
+    it and copy the word you jumped \e[31m\e[1mj\e(B\e[m\e[32mo. Like \e[31m\e[1mf\e(B\e[m\e[32mhi\e[10;1Hs
+    one'\e[39m\e[K\r\n\e[32mYou can combine it and copy \e[31m\e[1mh\e(B\e[m\e[32mhe
+    word you jumped \e[31m\e[1mg\e(B\e[m\e[32mo. Like \e[31m\e[1mk\e(B\e[m\e[32mhis
+    one\e[39m\e[K\r\n\e[32m➜  ~ echo 'Copied\e[39m\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 21:00 01-Feb-20\e(B\e[m\e[1;1H\e[?12l\e[?25h\e[?2004h\e[?25l\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'\e[K\r\nI want to jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'got it? I want to jump here.'\e[K\r\ngot it? I want to
+    jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'Type tmux-prefix followed
+    by j to trigger the jump mode. Then type the first character of the word to jump
+    to. Lets jump here.'\e[K\r\nType tmux-prefix followed by j to trigger the jump
+    mode. Then type the\e[K\r\nfirst character of the word to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'You can combine it and copy the word you jumped to. Like
+    this one'\e[K\r\nYou can combine it and copy the word you jumped to. Like this
+    one\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'Copied\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[12;19H\e[?12l\e[?25h\e[?25l\e[H\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'I want to jump here.'                                  \e[30m\e[43m[0/1]\e[2;1H\e[39m\e[49mI
+    want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'got it? I want to
+    jump here.'\e[K\r\ngot it? I want to jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho
+    'Type tmux-prefix followed by j to trigger the jump mode. The\e[6;1Hn type the
+    first character of the word to jump to. Lets jump here.'\e[K\r\nType tmux-prefix
+    followed by j to trigger the jump mode. Then type the\e[K\r\nfirst character of
+    the word to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho
+    'You can combine it and copy the word you jumped to. Like thi\e[10;1Hs one'\e[K\r\nYou
+    can combine it and copy the word you jumped to. Like this one\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'Copied\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\e[12;19H\e[?12l\e[?25h\e[?2004l\r\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[9;1H➜\e[12;1H➜\e[H\e(B\e[m\e[4B\e[31m\e[1m➜\e[69C\e(B\e[m$\e[5;1H\e[31m\e[1m➜\e[69C\e(B\e[me\e[6;5H\r\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[9;1H➜\e[12;1H➜\e[H\e(B\e[m"
+- delay: 3
+  content: "\e[4B\e[31m\e[1m➜\e[69C\e(B\e[m$\e[5;1H\e[31m\e[1m➜\e[69C\e(B\e[me\e[9;1H\e[31m\e[1m➜\e[69C\e(B\e[m$\e[9;1H\e[31m\e[1m➜\e[69C\e(B\e[mi\e[11;58H"
+- delay: 301
+  content: "\e[H\e[31m\e[1m➜\e[3;1H➜\e[5;1H➜\e[9;1H➜\e[11;58H\e(B\e[m\e[30m\e[43mt\r\n\e[49m\e[31m\e[1m➜\e[11;58H\e(B\e[m"
+- delay: 68
+  content: "\e[30m\e[43mthis one \e[?25l\e[23;1H\e[42m[0] 0:[tmux]*                   \"schasse@schasse-Think\"
+    21:00 01-Feb-20\e(B\e[m\e[11;66H\e[?12l\e[?25h"
+- delay: 562
+  content: "\e]52;;dGhpcyBvbmU=\a\e[12;19H\e[?2004h\e[?25l\e[H\e[31m\e[1m➜  \e[36m~
+    \e(B\e[mecho 'I want to jump here.'\e[K\r\nI want to jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'got it? I want to jump here.'\e[K\r\ngot it? I want to
+    jump here.\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'Type tmux-prefix followed
+    by j to trigger the jump mode. Then type the first character of the word to jump
+    to. Lets jump here.'\e[K\r\nType tmux-prefix followed by j to trigger the jump
+    mode. Then type the\e[K\r\nfirst character of the word to jump to. Lets jump here.\e[K\r\n\e[31m\e[1m➜
+    \ \e[36m~ \e(B\e[mecho 'You can combine it and copy the word you jumped to. Like
+    this one'\e[K\r\nYou can combine it and copy the word you jumped to. Like this
+    one\e[K\r\n\e[31m\e[1m➜  \e[36m~ \e(B\e[mecho 'Copied\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[K\r\n\e[30m\e[42m[0]
+    0:zsh*                      \"schasse@schasse-Think\" 21:00 01-Feb-20\e(B\e[m\e[12;19H\e[?12l\e[?25h"
+- delay: 7
+  content: this one
+- delay: 281
+  content: "'"
+- delay: 471
+  content: "\r\n\e[?2004l"
+- delay: 9
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"echo 'Copied
+    this one\" 21:00 01-Feb-20\e(B\e[m\e[13;1H\e[?12l\e[?25hCopied this one\r\n\e[1m\e[7m%\e(B\e[m
+    \                                                                     \e[14;1H
+    \r"
+- delay: 74
+  content: "\e[?25l\e[23d\e[30m\e[42m[0] 0:zsh*                      \"schasse@schasse-Think\"
+    21:00 01-Feb-20\e(B\e[m\e[14;1H\e[?12l\e[?25h"
+- delay: 8
+  content: "\e[1;22r\e[15;22r\e[8S\e[14;1H\e[K\e[31m\e[1m➜  \e[36m~ \e(B\e[m\e[K\e[1;23r\e[14;6H\e[?2004h"
+- delay: 385
+  content: "\r\n\e[?2004l"
+- delay: 326
+  content: "\e[1;23r\e(B\e[m\e[?1l\e>\e[H\e[2J\e]112\a\e[?12l\e[?25h\e[?1000l\e[?1002l\e[?1006l\e[?1005l\e[?1049l\e[23;0;0t[exited]\r\n"
