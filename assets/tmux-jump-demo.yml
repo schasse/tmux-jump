@@ -25,7 +25,7 @@ config:
       opacity: 0.9
   cursorStyle: block
   fontFamily: Ubuntu Mono
-  fontSize: 23
+  fontSize: 20
   lineHeight: 1
   letterSpacing: 0
   theme:
