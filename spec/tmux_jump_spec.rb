@@ -1,11 +1,11 @@
-require_relative '../scripts/easymotion'
+require_relative '../scripts/tmux-jump'
 require 'pty'
 require 'pry'
 
 Config.pane_nr = '%68'
 Config.pane_mode = '0'
 
-RSpec.describe 'tmux-easymotion' do
+RSpec.describe 'tmux-jump' do
   before do
     @read, @write = PTY.open
     Config.pane_tty_file = @write.path

@@ -81,7 +81,7 @@ def recover_alternate_screen_after
 end
 
 def prompt_char! # raises Timeout::Error
-  tmp_file = Tempfile.new 'tmux-easymotion'
+  tmp_file = Tempfile.new 'tmux-jump'
   Kernel.spawn(
     'tmux', 'command-prompt', '-1', '-p', 'char:',
     "run-shell \"printf '%1' >> #{tmp_file.path}\"")

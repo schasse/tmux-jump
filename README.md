@@ -4,7 +4,7 @@
        title="tmux-jump" />
 </p>
 
-[![Build Status](https://travis-ci.org/schasse/tmux-easymotion.svg?branch=master)](https://travis-ci.org/schasse/tmux-easymotion)
+[![Build Status](https://travis-ci.org/schasse/tmux-jump.svg?branch=master)](https://travis-ci.org/schasse/tmux-jump)
 
 A fast way to jump wherever you want in your terminal without using the mouse. tmux-jump is written in ruby and can easily be installed via tpm.
 
