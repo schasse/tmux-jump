@@ -8,7 +8,7 @@
 
 A fast way to jump wherever you want in your terminal without using the mouse. A plugin similar to [vimium](https://vimium.github.io/) and [easymotion](https://github.com/easymotion/vim-easymotion) but for tmux. tmux-jump is written in ruby and can easily be installed via tpm.
 
-![tmux-jump](assets/tmux-jump-demo.gif)
+![tmux-jump-demo](https://user-images.githubusercontent.com/3882305/74186577-2f6aad80-4c4b-11ea-8054-91c54e3dd2af.gif)
 
 From now to then I think about how to improve my dev tools. Copy and pasting inside the terminal is something I do everyday, all the time. This is one of the most obvious things make more efficient. [tmux-yank](https://github.com/tmux-plugins/tmux-yank) improved the situation a lot. Though, it felt still annoying to get to the string I wanted to copy. Either I used to enter tmux copy mode and moved the cursor to the string or I used the mouse. I looked for a plugin such as easymotion for vim or ace jump for emacs, but I couldn't find one. So I decided to write my own tmux plugin.
 
@@ -17,7 +17,7 @@ From now to then I think about how to improve my dev tools. Copy and pasting ins
 * [tmux](https://github.com/tmux/tmux) >= 1.8
 * [ruby](https://www.ruby-lang.org/) >= 2.3
 
-## Installation with [TPM](https://github.com/tmux-plugins/tpm)
+## Installation via [TPM](https://github.com/tmux-plugins/tpm)
 
 Add plugin to the list of TPM plugins in `~/.tmux.conf`:
 
