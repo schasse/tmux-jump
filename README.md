@@ -55,6 +55,12 @@ tmux source-file ~/.tmux.conf
 
 tmux-jump can also be used in in any program and during copy mode.
 
+You can customize the key binding in your `.tmux.conf`:
+
+```
+set -g @jump-key 's'
+```
+
 ## Similar Projects
 
 * [vimium](https://vimium.github.io/)
