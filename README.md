@@ -22,7 +22,7 @@ From now to then I think about how to improve my dev tools. Copy and pasting ins
 Add plugin to the list of TPM plugins in `~/.tmux.conf`:
 
 ```
-set -g @plugin 'schasse/tmux-jump
+set -g @plugin 'schasse/tmux-jump'
 ```
 Hit <kbd>tmux-prefix</kbd> + <kbd>I</kbd> to fetch the plugin and source it. You should now be able to use the plugin.
 
