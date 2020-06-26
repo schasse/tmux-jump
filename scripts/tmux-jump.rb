@@ -4,9 +4,9 @@ require 'tempfile'
 require 'open3'
 
 # SPECIAL STRINGS
-GRAY = "\e[0m\e[32m"
+GRAY = ENV['JUMP_BACKGROUND_COLOR'].gsub('\e', "\e")
 # RED = "\e[38;5;124m"
-RED = "\e[1m\e[31m"
+RED = ENV['JUMP_FOREGROUND_COLOR'].gsub('\e', "\e")
 CLEAR_SEQ = "\e[2J"
 HOME_SEQ = "\e[H"
 RESET_COLORS = "\e[0m"

@@ -61,6 +61,12 @@ You can customize the key binding in your `.tmux.conf`:
 set -g @jump-key 's'
 ```
 
+You can also customize foreground and background color:
+```
+set -g @jump-bg-color '\e[0m\e[90m'
+set -g @jump-fg-color '\e[1m\e[31m'
+```
+
 ## Similar Projects
 
 * [vimium](https://vimium.github.io/)
