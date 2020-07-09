@@ -130,12 +130,18 @@ def async_detect_user_escape(result_queue)
   end
 end
 
+def maybe_downcase(char, downcase)
+  return char.downcase if downcase
+  return char
+end
+
 def positions_of(jump_to_char, screen_chars)
   positions = []
+  downcase = jump_to_char.downcase == jump_to_char
 
-  positions << 0 if screen_chars[0] =~ /\w/ && screen_chars[0].downcase == jump_to_char
+  positions << 0 if screen_chars[0] =~ /\w/ && maybe_downcase(screen_chars[0], downcase) == jump_to_char
   screen_chars.each_char.with_index do |char, i|
-    if (char =~ /\w/).nil? && screen_chars[i+1] && screen_chars[i+1].downcase == jump_to_char
+    if (char =~ /\w/).nil? && screen_chars[i+1] && maybe_downcase(screen_chars[i+1], downcase) == jump_to_char
       positions << i+1
     end
   end
