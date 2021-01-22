@@ -10,4 +10,3 @@ get_tmux_option() {
     echo $option_value
   fi
 }
-

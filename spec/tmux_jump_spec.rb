@@ -1,6 +1,10 @@
-require_relative '../scripts/tmux-jump'
 require 'pty'
 require 'pry'
+
+ENV['JUMP_BACKGROUND_COLOR'] = "\e[0m\e[32m"
+ENV['JUMP_FOREGROUND_COLOR'] = "\e[1m\e[31m"
+
+require_relative '../scripts/tmux-jump'
 
 Config.pane_nr = '%68'
 Config.pane_mode = '0'
