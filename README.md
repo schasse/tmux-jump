@@ -67,6 +67,15 @@ set -g @jump-bg-color '\e[0m\e[90m'
 set -g @jump-fg-color '\e[1m\e[31m'
 ```
 
+And the keys position:
+```
+# keys will overlap with the word (default)
+set -g @jump-keys-position 'left'
+
+# keys will be at the left of the word without overlap
+set -g @jump-keys-position 'off_left'
+```
+
 ## Similar Projects
 
 * [vimium](https://vimium.github.io/)

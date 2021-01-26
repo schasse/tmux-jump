@@ -14,6 +14,7 @@ ENTER_ALTERNATE_SCREEN = "\e[?1049h"
 RESTORE_NORMAL_SCREEN = "\e[?1049l"
 
 # CONFIG
+KEYS_POSITION = ENV['JUMP_KEYS_POSITION']
 KEYS = 'jfhgkdlsa'.each_char.to_a
 Config = Struct.new(
   :pane_nr,
@@ -148,7 +149,7 @@ def draw_keys_onto_tty(screen_chars, positions, keys, key_len)
     positions.each_with_index do |pos, i|
       tty << "#{GRAY}#{screen_chars[cursor..pos-1].gsub("\n", "\n\r")}"
       tty << "#{RED}#{keys[i]}"
-      cursor = pos + key_len
+      cursor = pos + key_len - (KEYS_POSITION == 'off_left' ? key_len : 0)
     end
     tty << "#{GRAY}#{screen_chars[cursor..-1].gsub("\n", "\n\r")}"
     tty << HOME_SEQ
