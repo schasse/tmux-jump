@@ -14,7 +14,7 @@ From now to then I think about how to improve my dev tools. Copy and pasting ins
 
 ## Requirements
 
-* [tmux](https://github.com/tmux/tmux) >= 1.8
+* [tmux](https://github.com/tmux/tmux) >= 3.1
 * [ruby](https://www.ruby-lang.org/) >= 2.3
 
 ## Installation via [TPM](https://github.com/tmux-plugins/tpm)
