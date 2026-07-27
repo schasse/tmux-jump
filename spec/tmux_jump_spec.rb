@@ -107,6 +107,14 @@ RSpec.describe 'tmux-jump' do
     end
   end
 
+  describe '#row_col_for' do
+    it 'returns the correct row and column for positions after a newline' do
+      expect(row_col_for(9, simple_screen)).to eq [0, 9]
+      expect(row_col_for(46, simple_screen)).to eq [1, 0]
+      expect(row_col_for(59, simple_screen)).to eq [1, 13]
+    end
+  end
+
   describe 'keys_for' do
     [
       [1, KEYS.size, 1],
@@ -203,6 +211,34 @@ RSpec.describe 'tmux-jump' do
       result_queue = Queue.new
       async_detect_user_escape result_queue
       expect(result_queue.pop).to eq nil
+    end
+  end
+
+  describe '#main' do
+    it 'moves by row and column instead of a flat cursor-right count' do
+      tmp_file = Tempfile.new('tmux-jump-spec')
+      Config.tmp_file = tmp_file.path
+      Config.scroll_position = 0
+      Config.pane_height = 3
+
+      allow(self).to receive(:read_char_from_file!).and_return('e')
+      allow(self).to receive(:recover_screen_after).and_yield
+      allow(self).to receive(:prompt_position_index!).with([3, 22, 59], simple_screen).and_return(2)
+
+      expect(self).to receive(:`).with('tmux capture-pane -p -t %68 -S 0 -E 2').ordered.and_return("#{simple_screen}\n")
+      expect(self).to receive(:`).with('tmux copy-mode -t %68').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 start-of-line').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 top-line').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 -N 200 cursor-right').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 start-of-line').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 top-line').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 -N 0 cursor-up').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 -N 1 cursor-down').ordered.and_return('')
+      expect(self).to receive(:`).with('tmux send-keys -X -t %68 -N 13 cursor-right').ordered.and_return('')
+
+      main
+    ensure
+      tmp_file&.close!
     end
   end
 end

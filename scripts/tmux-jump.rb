@@ -154,6 +154,24 @@ def positions_of(jump_to_char, screen_chars)
   positions
 end
 
+def row_col_for(position, screen_chars)
+  row = 0
+  col = 0
+
+  screen_chars.each_char.with_index do |char, i|
+    break if i == position
+
+    if char == "\n"
+      row += 1
+      col = 0
+    else
+      col += 1
+    end
+  end
+
+  [row, col]
+end
+
 def draw_keys_onto_tty(screen_chars, positions, keys, key_len)
   File.open(Config.pane_tty_file, 'a') do |tty|
     cursor = 0
@@ -213,6 +231,7 @@ def main
   end
   Kernel.exit 0 if position_index.nil?
   jump_to = positions[position_index]
+  jump_row, jump_col = row_col_for jump_to, screen_chars
   `tmux copy-mode -t #{Config.pane_nr}`
    # begin: tmux weirdness when 1st line is empty
   `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
@@ -222,7 +241,8 @@ def main
   `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
   `tmux send-keys -X -t #{Config.pane_nr} top-line`
   `tmux send-keys -X -t #{Config.pane_nr} -N #{Config.scroll_position} cursor-up`
-  `tmux send-keys -X -t #{Config.pane_nr} -N #{jump_to} cursor-right`
+  `tmux send-keys -X -t #{Config.pane_nr} -N #{jump_row} cursor-down` if jump_row > 0
+  `tmux send-keys -X -t #{Config.pane_nr} -N #{jump_col} cursor-right` if jump_col > 0
 end
 
 if $PROGRAM_NAME == __FILE__
