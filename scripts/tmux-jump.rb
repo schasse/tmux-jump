@@ -213,6 +213,15 @@ def main
   end
   Kernel.exit 0 if position_index.nil?
   jump_to = positions[position_index]
+  # Convert the character offset into row/column. We can't simply issue
+  # `jump_to` cursor-right presses: when the cursor is on the last character
+  # of a line, a single cursor-right jumps to the next line, so each newline
+  # only costs one move (not the newline char + the step onto the next line).
+  # Counting characters therefore drifts one column per preceding line.
+  before = screen_chars[0...jump_to]
+  line_number = before.count("\n")
+  last_newline = before.rindex("\n")
+  column = last_newline ? jump_to - last_newline - 1 : jump_to
   `tmux copy-mode -t #{Config.pane_nr}`
    # begin: tmux weirdness when 1st line is empty
   `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
@@ -221,8 +230,9 @@ def main
    # end
   `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
   `tmux send-keys -X -t #{Config.pane_nr} top-line`
-  `tmux send-keys -X -t #{Config.pane_nr} -N #{Config.scroll_position} cursor-up`
-  `tmux send-keys -X -t #{Config.pane_nr} -N #{jump_to} cursor-right`
+  `tmux send-keys -X -t #{Config.pane_nr} -N #{Config.scroll_position} cursor-up` if Config.scroll_position > 0
+  `tmux send-keys -X -t #{Config.pane_nr} -N #{line_number} cursor-down` if line_number > 0
+  `tmux send-keys -X -t #{Config.pane_nr} -N #{column} cursor-right` if column > 0
 end
 
 if $PROGRAM_NAME == __FILE__
