@@ -1,5 +1,6 @@
 module JumpPosition
   ZERO_WIDTH = /[\p{M}\p{Cf}\u{2028}\u{2029}&&[^\u{AD}\u{302E}\u{302F}\u{16FF0}\u{16FF1}]]/
+  WIDTH_VARYING = /[\p{M}\p{Cf}\p{Cn}\u{80}-\u{9F}\u{2028}\u{2029}\u{1160}-\u{11FF}\u{D7B0}-\u{D7FB}\u{3164}\u{FFA0}]/
   REGIONAL_INDICATOR = /[\u{1F1E6}-\u{1F1FF}]/
   SKIN_TONE = /[\u{1F3FB}-\u{1F3FF}]/
   SKIN_TONE_BASE = /\A[\u{1F44B}-\u{1F450}\u{1F466}-\u{1F469}\u{1F46E}\u{1F470}-\u{1F478}\u{1F47C}\u{1F481}-\u{1F483}\u{1F485}-\u{1F487}\u{1F4AA}\u{1F575}\u{1F57A}\u{1F590}\u{1F595}-\u{1F596}\u{1F645}-\u{1F647}\u{1F64B}-\u{1F64F}\u{1F6B4}-\u{1F6B6}\u{1F926}\u{1F937}-\u{1F939}\u{1F93D}-\u{1F93E}\u{1F9B5}-\u{1F9B6}\u{1F9B8}-\u{1F9B9}\u{1F9CD}-\u{1F9CF}\u{1F9D1}-\u{1F9DF}]\z/
@@ -16,8 +17,19 @@ module JumpPosition
     (number <=> [major, minor]) >= 0
   end
 
-  def self.joins?(version, cell, char)
-    return true if char =~ ZERO_WIDTH
+  def self.zero_width_chars(version, screen_chars, run_tmux)
+    chars = screen_chars.scan(WIDTH_VARYING).uniq
+    return {} if chars.empty? || !tmux_at_least?(version, 3, 2)
+
+    format = chars.map { |char| "\#{w:\#{l:a#{char}}}" }.join(' ')
+    widths = run_tmux.call(['display-message', '-p', format]).to_s.split
+    return {} unless widths.size == chars.size && widths.all? { |width| %w[1 2 3].include?(width) }
+
+    chars.zip(widths.map { |width| width == '1' }).to_h
+  end
+
+  def self.joins?(version, cell, char, zero_width = {})
+    return true if zero_width.fetch(char) { char =~ ZERO_WIDTH }
     return false unless tmux_at_least?(version, 3, 3)
     return !char.ascii_only? if cell.end_with?("\u{200D}")
 
@@ -32,9 +44,9 @@ module JumpPosition
     end
   end
 
-  def self.cells(version, text)
+  def self.cells(version, text, zero_width = {})
     text.each_char.each_with_object([]) do |char, cells|
-      if !cells.empty? && joins?(version, cells.last, char)
+      if !cells.empty? && joins?(version, cells.last, char, zero_width)
         cells.last << char
       else
         cells << char.dup
@@ -42,7 +54,7 @@ module JumpPosition
     end
   end
 
-  def self.commands(version, jump_to, screen_chars, scroll_position)
+  def self.commands(version, jump_to, screen_chars, scroll_position, zero_width = {})
     commands = [['top-line']]
     commands << ['-N', scroll_position.to_s, 'scroll-up'] << ['top-line'] if scroll_position > 0
     return commands if jump_to == 0
@@ -55,10 +67,10 @@ module JumpPosition
     elsif row > 0
       commands << ['-N', row.to_s, 'cursor-down']
     end
-    before = cells(version, rows.last)
+    before = cells(version, rows.last, zero_width)
     return commands if before.empty?
 
-    target = cells(version, screen_chars[jump_to..-1][/\A.*/]).first
+    target = cells(version, screen_chars[jump_to..-1][/\A.*/], zero_width).first
     if target.size == 1 && (target.ascii_only? || tmux_at_least?(version, 3, 2))
       count = before.drop(1).count(target) + 1
       commands << ['-N', count.to_s, 'jump-forward', target == ';' ? '\;' : target]
