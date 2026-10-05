@@ -3,6 +3,8 @@ require 'pry'
 
 ENV['JUMP_BACKGROUND_COLOR'] = "\e[0m\e[32m"
 ENV['JUMP_FOREGROUND_COLOR'] = "\e[1m\e[31m"
+ENV['JUMP_KEYS'] = 'jfhgkdlsa'
+ENV['JUMP_KEYS_POSITION'] = 'left'
 
 require_relative '../scripts/tmux-jump'
 
