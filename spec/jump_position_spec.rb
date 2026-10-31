@@ -44,6 +44,73 @@ RSpec.describe JumpPosition do
     end
   end
 
+  describe '.cells with an explicit zero width set' do
+    it 'keeps a spacing mark in its own cell' do
+      expect(described_class.cells('3.4', "\u{915}\u{93F}", "\u{93F}" => false).size).to eq 2
+    end
+
+    it 'joins a spacing mark to its base' do
+      expect(described_class.cells('3.4', "\u{915}\u{93F}", "\u{93F}" => true).size).to eq 1
+    end
+
+    it 'joins a Hangul vowel and final after a Latin letter' do
+      zero_width = { "\u{1161}" => true, "\u{11A8}" => true }
+      expect(described_class.cells('3.7c', "a\u{1161}\u{11A8}", zero_width).size).to eq 1
+    end
+
+    it 'keeps a Hangul vowel in its own cell after a Latin letter' do
+      zero_width = { "\u{1161}" => false, "\u{11A8}" => false }
+      expect(described_class.cells('3.7c', "a\u{1161}", zero_width).size).to eq 2
+    end
+
+    it 'falls back to the static rule for characters not in the set' do
+      expect(described_class.cells('3.4', "e\u{301}\u{915}\u{93F}", "\u{93F}" => false).size).to eq 3
+    end
+  end
+
+  describe '.zero_width_chars' do
+    let(:calls) { [] }
+    let(:run_tmux) { ->(args) { calls << args; "2 1\n" } }
+
+    %w[3.2a openbsd-6.9 next-3.9].each do |version|
+      it "queries tmux #{version}" do
+        described_class.zero_width_chars(version, "\u{915}\u{93F}", run_tmux)
+        expect(calls.size).to eq 1
+      end
+    end
+
+    %w[3.1c openbsd-6.8].each do |version|
+      it "makes no call for tmux #{version}" do
+        expect(described_class.zero_width_chars(version, "\u{915}\u{93F}", run_tmux)).to eq({})
+        expect(calls).to be_empty
+      end
+    end
+
+    it 'maps a width of 1 to zero-width' do
+      expect(described_class.zero_width_chars('3.4', "\u{93F}\u{301}", run_tmux)).to eq("\u{93F}" => false, "\u{301}" => true)
+    end
+
+    it 'queries each distinct candidate once' do
+      described_class.zero_width_chars('3.4', "\u{93F}\u{301}\u{93F}", run_tmux)
+      expect(calls).to eq [['display-message', '-p', "\#{w:\#{l:a\u{93F}}} \#{w:\#{l:a\u{301}}}"]]
+    end
+
+    it 'queries C1 controls' do
+      expect(described_class.zero_width_chars('3.4', "a\u{85}b", ->(_) { "1\n" })).to eq("\u{85}" => true)
+    end
+
+    it 'makes no call without candidates' do
+      expect(described_class.zero_width_chars('3.4', "abc \u{4E2D} \u{1F600}", run_tmux)).to eq({})
+      expect(calls).to be_empty
+    end
+
+    ['', "2\n", "2 1 1\n", "0 1\n", nil].each do |malformed|
+      it "returns {} for the answer #{malformed.inspect}" do
+        expect(described_class.zero_width_chars('3.4', "\u{93F}\u{301}", ->(_) { malformed })).to eq({})
+      end
+    end
+  end
+
   describe '.commands' do
     def column_command(version, screen, marker)
       described_class.commands(version, screen.index(marker), screen, 0).last

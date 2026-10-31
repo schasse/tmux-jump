@@ -16,13 +16,16 @@ def tmux(*args)
   IO.popen([TMUX_BIN, '-L', "tmux-jump-spec-#{Process.pid}", *args], err: %i[child out], &:read)
 end
 
-def start_pane(content, mode_keys)
+def start_pane(content, mode_keys, options = {})
   file = Tempfile.new('tmux-jump-content')
   file.write(content)
   file.close
   tmux('-f', '/dev/null', 'new-session', '-d', '-x', PANE_WIDTH.to_s, '-y', PANE_HEIGHT.to_s)
   tmux('resize-window', '-x', PANE_WIDTH.to_s, '-y', PANE_HEIGHT.to_s)
   tmux('set-option', '-g', 'mode-keys', mode_keys)
+  options.each do |name, value|
+    skip "tmux has no #{name} option" unless tmux('set-option', '-g', name, value).empty?
+  end
   pane = tmux('display-message', '-p', '#{pane_id}').strip
   expect(tmux('display-message', '-p', '-t', pane, '#{pane_width}x#{pane_height}').strip)
     .to eq "#{PANE_WIDTH}x#{PANE_HEIGHT}"
@@ -48,7 +51,8 @@ def jump(pane, marker)
   tmux('send-keys', '-X', '-t', pane, 'cancel') if in_mode
   tmux('copy-mode', '-t', pane)
   version = tmux('display-message', '-p', '#{version}').strip
-  JumpPosition.commands(version, jump_to, screen_chars, scroll).each do |command|
+  zero_width = JumpPosition.zero_width_chars(version, screen_chars, ->(args) { tmux(*args) })
+  JumpPosition.commands(version, jump_to, screen_chars, scroll, zero_width).each do |command|
     tmux('send-keys', '-X', '-t', pane, *command)
   end
 end
@@ -86,10 +90,16 @@ CASES = [
   ['joined sequences and a decomposed accent target', "#{JOINED} e\u0301tok\n", "e\u0301tok"],
   ['joined sequences and a double-width target', "#{JOINED} \u4e2dx \u4e2dy\n", "\u4e2dy"],
   ['an accented target', "e\u0301a xe\u0301 e\u0301b\n", "e\u0301b"],
-  ['a zero width joiner before ASCII and a decomposed accent target', "a\u200db e\u0301x\n", "e\u0301x", [3, 3]],
+  ['a zero width joiner before ASCII and a decomposed accent target', "a\u200db e\u0301x\n", "e\u0301x", skip_on: [3, 3]],
   ['a soft hyphen', "x t\u00ad tgt\n", 'tgt'],
   ['a soft hyphen and a decomposed accent target', "a\u00ad e\u0301x\n", "e\u0301x"],
   ['a text presentation selector on the target', "x \u2714\ufe0e1 \u2714\ufe0e2\n", "\u2714\ufe0e2"],
+  ['a spacing mark and a target after it', "x \u0915\u093f \u0915x\n", "\u0915x"],
+  ['a spacing mark and a decomposed accent target', "\u0915\u093f e\u0301x\n", "e\u0301x"],
+  ['a Hangul vowel and final after a Latin letter and a decomposed accent target', "a\u1161\u11a8 e\u0301x\n", "e\u0301x"],
+  ['a C1 control and a decomposed accent target', "a\u0085b e\u0301x\n", "e\u0301x", since: [3, 2]],
+  ['a spacing mark with its own cell by codepoint-widths and a target after it', "x \u0915\u093f \u0915x\n", "\u0915x",
+   tmux_options: { 'codepoint-widths' => 'U+093F=1' }],
   ['a skin tone before its base and a decomposed accent target', "\u{1F3FD}\u{1F44D} e\u0301x\n", "e\u0301x"]
 ] + %w[; \\ ' " $ { } # % ~ - /].map do |char|
   ["the special char #{char}", "#{char}1 x#{char}2 #{char}mark\n", "#{char}mark"]
@@ -100,13 +110,15 @@ RSpec.describe "jump positioning (#{TMUX_BIN})" do
 
   %w[vi emacs].each do |mode_keys|
     context "with mode-keys #{mode_keys}" do
-      CASES.each do |description, content, marker, skip_on|
+      CASES.each do |description, content, marker, options = {}|
         it "lands on the target with #{description}" do
+          skip_on = options[:skip_on]
           if skip_on && JumpPosition.tmux_at_least?(TMUX_VERSION, *skip_on) &&
              !JumpPosition.tmux_at_least?(TMUX_VERSION, skip_on[0], skip_on[1] + 1)
             skip 'the joiner is captured after the target base character'
           end
-          pane = start_pane(content, mode_keys)
+          skip 'the width is only queried from tmux 3.2' if options[:since] && !JumpPosition.tmux_at_least?(TMUX_VERSION, *options[:since])
+          pane = start_pane(content, mode_keys, options.fetch(:tmux_options, {}))
           jump(pane, marker)
           expect(text_under_cursor(pane)).to start_with(marker)
         end

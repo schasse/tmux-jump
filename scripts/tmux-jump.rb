@@ -216,7 +216,9 @@ def main
   Kernel.exit 0 if position_index.nil?
   jump_to = positions[position_index]
   `tmux copy-mode -t #{Config.pane_nr}`
-  JumpPosition.commands(Config.tmux_version, jump_to, screen_chars, Config.scroll_position).each do |command|
+  run_tmux = ->(args) { IO.popen(['tmux', *args], err: File::NULL, &:read) }
+  zero_width = JumpPosition.zero_width_chars(Config.tmux_version, screen_chars, run_tmux)
+  JumpPosition.commands(Config.tmux_version, jump_to, screen_chars, Config.scroll_position, zero_width).each do |command|
     system('tmux', 'send-keys', '-X', '-t', Config.pane_nr, *command)
   end
 end

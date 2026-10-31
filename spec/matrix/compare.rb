@@ -20,24 +20,26 @@ def master_commands(jump_to, scroll)
    ['-N', scroll.to_s, 'cursor-up'], ['-N', jump_to.to_s, 'cursor-right']]
 end
 
-def width(text)
+def width(text, zero_width)
   text.each_char.inject(0) do |x, char|
     if char == "\t" then [(x / 8 + 1) * 8, WIDTH - 1].min
-    elsif char =~ /\p{M}/ then x
-    elsif char =~ /[一-鿿]/ then x + 2
+    elsif zero_width.fetch(char) { char =~ /\p{M}/ } then x
+    elsif char =~ /[一-鿿가-힣ᄀ-ᅟ]/ then x + 2
     else x + 1
     end
   end
 end
 
 WORDS = %w[alpha beta gamma delta tx tt ab ba foo bar a b t x quux zeta]
+INDIC_HANGUL = %W[\u0915\u093f \u0915\u093f\u0915 \u0928\u093e\u092e \u0939\u093f\u0928\u094d\u0926\u0940 \ud55c\uae00]
 PUNCTUATION = [',', '.', '-', '(', ')', '!', ':', '/', '"']
 
 def random_word(rng)
-  case rng.rand(10)
+  case rng.rand(11)
   when 0 then Array.new(rng.rand(1..3)) { %W[中 文 字][rng.rand(3)] }.join + (rng.rand(2).zero? ? 'x' : '')
   when 1 then (rng.rand(2).zero? ? "e\u0301" : "\u00e9") + WORDS.sample(random: rng)
-  when 2 then WORDS.sample(random: rng) + PUNCTUATION.sample(random: rng)
+  when 2 then INDIC_HANGUL.sample(random: rng) + (rng.rand(2).zero? ? 'x' : WORDS.sample(random: rng))
+  when 3 then WORDS.sample(random: rng) + PUNCTUATION.sample(random: rng)
   else WORDS.sample(random: rng)
   end
 end
@@ -93,11 +95,12 @@ counts = Hash.new(0)
   end
   scroll = tmux('display-message', '-p', '-t', pane, '#{scroll_position}').to_i
   screen = tmux('capture-pane', '-p', '-t', pane, '-S', (-scroll).to_s, '-E', (-scroll + HEIGHT - 1).to_s)[0..-2]
-  typeable = screen.each_char.reject { |char| char == "\n" || char == "\t" || char =~ /\p{M}/ }.uniq
+  zero_width = JumpPosition.zero_width_chars(version, screen, ->(args) { tmux(*args) })
+  typeable = screen.each_char.reject { |char| char == "\n" || char == "\t" || zero_width.fetch(char) { char =~ /\p{M}/ } }.uniq
   typeable.flat_map { |char| positions_of(char, screen) }.uniq.sort.each do |jump_to|
-    target = [width(screen[0...jump_to][/[^\n]*\z/]), screen[0...jump_to].count("\n"), scroll]
+    target = [width(screen[0...jump_to][/[^\n]*\z/], zero_width), screen[0...jump_to].count("\n"), scroll]
     master = land(pane, master_commands(jump_to, scroll)) == target
-    branch = land(pane, JumpPosition.commands(version, jump_to, screen, scroll)) == target
+    branch = land(pane, JumpPosition.commands(version, jump_to, screen, scroll, zero_width)) == target
     counts[:jumps] += 1
     counts[:master] += 1 if master
     counts[:branch] += 1 if branch
