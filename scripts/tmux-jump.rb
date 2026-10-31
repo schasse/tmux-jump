@@ -2,6 +2,7 @@
 require 'timeout'
 require 'tempfile'
 require 'open3'
+require_relative 'jump_position'
 
 # SPECIAL STRINGS
 GRAY = ENV['JUMP_BACKGROUND_COLOR'].gsub('\e', "\e")
@@ -25,6 +26,7 @@ Config = Struct.new(
   :alternate_on,
   :scroll_position,
   :pane_height,
+  :tmux_version,
   :tmp_file
 ).new
 
@@ -206,7 +208,7 @@ def main
   start = -Config.scroll_position
   ending = -Config.scroll_position + Config.pane_height - 1
   screen_chars =
-    `tmux capture-pane -p -t #{Config.pane_nr} -S #{start} -E #{ending}`[0..-2].gsub("︎", '') # without colors
+    `tmux capture-pane -p -t #{Config.pane_nr} -S #{start} -E #{ending}`[0..-2] # without colors
   positions = positions_of jump_to_char, screen_chars
   position_index = recover_screen_after do
     prompt_position_index! positions, screen_chars
@@ -214,21 +216,15 @@ def main
   Kernel.exit 0 if position_index.nil?
   jump_to = positions[position_index]
   `tmux copy-mode -t #{Config.pane_nr}`
-   # begin: tmux weirdness when 1st line is empty
-  `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
-  `tmux send-keys -X -t #{Config.pane_nr} top-line`
-  `tmux send-keys -X -t #{Config.pane_nr} -N 200 cursor-right`
-   # end
-  `tmux send-keys -X -t #{Config.pane_nr} start-of-line`
-  `tmux send-keys -X -t #{Config.pane_nr} top-line`
-  `tmux send-keys -X -t #{Config.pane_nr} -N #{Config.scroll_position} cursor-up`
-  `tmux send-keys -X -t #{Config.pane_nr} -N #{jump_to} cursor-right`
+  JumpPosition.commands(Config.tmux_version, jump_to, screen_chars, Config.scroll_position).each do |command|
+    system('tmux', 'send-keys', '-X', '-t', Config.pane_nr, *command)
+  end
 end
 
 if $PROGRAM_NAME == __FILE__
   Config.pane_nr = `tmux display-message -p "\#{pane_id}"`.strip
   format = '#{pane_id};#{pane_tty};#{pane_in_mode};#{cursor_y};#{cursor_x};'\
-           '#{alternate_on};#{scroll_position};#{pane_height}'
+           '#{alternate_on};#{scroll_position};#{pane_height};#{version}'
   tmux_data = `tmux display-message -p -t #{Config.pane_nr} -F "#{format}"`.strip.split(';')
   Config.pane_tty_file = tmux_data[1]
   Config.pane_mode = tmux_data[2]
@@ -237,6 +233,7 @@ if $PROGRAM_NAME == __FILE__
   Config.alternate_on = tmux_data[5]
   Config.scroll_position = tmux_data[6].to_i
   Config.pane_height = tmux_data[7].to_i
+  Config.tmux_version = tmux_data[8]
   Config.tmp_file = ARGV[0]
   main
 end
